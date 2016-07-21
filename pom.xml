@@ -29,8 +29,9 @@
 	<modules>
 		<module>alan-common</module>
 		<module>alan-config</module>
+		<module>alan-provider</module>
 	</modules>
-	
+
 	<!-- 全局属性定义 -->
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

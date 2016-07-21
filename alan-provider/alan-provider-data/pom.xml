@@ -3,23 +3,23 @@
 	<modelVersion>4.0.0</modelVersion>
 	
 	<parent>
-		<artifactId>alan-parent</artifactId>
+		<artifactId>alan-provider</artifactId>
 		<groupId>cn.com.sina</groupId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
-	<artifactId>alan-config</artifactId>
+	<artifactId>alan-provider-data</artifactId>
 	<packaging>jar</packaging>
 	<name>${project.artifactId}</name>
-	<url>http://spring-cloud.io/project/SpringCloudConfig/</url>
+	<url>http://spring-cloud.io/</url>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-config-server</artifactId>
+			<artifactId>spring-cloud-starter-config</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-eureka-server</artifactId>
+			<artifactId>spring-cloud-starter-eureka</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -35,22 +35,6 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
-		<resources>
-			<resource>
-				<directory>src/main/java</directory>
-				<includes>
-					<include>**/*.xml</include>
-					<include>**/*.properties</include>
-				</includes>
-			</resource>
-			<resource>
-				<directory>src/main/resources</directory>
-				<includes>
-					<include>**/*.xml</include>
-					<include>**/*.properties</include>
-				</includes>
-			</resource>
-		</resources>
 	</build>
 
 </project>
