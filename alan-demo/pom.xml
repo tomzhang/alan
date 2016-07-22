@@ -14,7 +14,7 @@
 	<url>http://spring-cloud.io</url>
 
 	<modules>
-		<module>alan-demo-config</module>
+		<module>alan-demo-config-client</module>
 	</modules>
 
 </project>
