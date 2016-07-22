@@ -29,6 +29,7 @@
 	<modules>
 		<module>alan-common</module>
 		<module>alan-config</module>
+		<module>alan-demo</module>
 		<module>alan-provider</module>
 	</modules>
 
