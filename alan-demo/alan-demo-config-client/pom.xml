@@ -7,7 +7,7 @@
 		<groupId>cn.com.sina</groupId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
-	<artifactId>alan-demo-config</artifactId>
+	<artifactId>alan-demo-config-client</artifactId>
 	<packaging>jar</packaging>
 	<name>${project.artifactId}</name>
 	<url>http://spring-cloud.io/</url>
