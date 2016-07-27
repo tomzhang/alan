@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @RestController
-//@RefreshScope
+@RefreshScope
 public class ConfigClientApplication {
 
 	@Value("${spring.datasource.username}")
