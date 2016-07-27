@@ -3,11 +3,13 @@ package cn.com.sina.alan;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @RestController
+//@RefreshScope
 public class ConfigClientApplication {
 
 	@Value("${spring.datasource.username}")
@@ -18,6 +20,14 @@ public class ConfigClientApplication {
 		System.out.println(name);
 		return name;
 	}
+	
+//	@RequestMapping("/refresh")
+//	public String refresh() {
+//		RefreshScope.refreshAll();
+//		return name;
+//	}
+	
+	
 
 	public static void main(String[] args) {
 
