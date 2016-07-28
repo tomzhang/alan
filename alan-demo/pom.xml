@@ -15,6 +15,7 @@
 
 	<modules>
 		<module>alan-demo-config-client</module>
+        <module>alan-demo-registry-client</module>
 	</modules>
 
 </project>
