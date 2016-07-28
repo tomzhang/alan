@@ -18,16 +18,29 @@ import org.springframework.web.bind.annotation.RestController;
 @EnableFeignClients
 @RestController
 public class RegistryClientApplication {
+    /**
+     * Feign Client, 用于发起远程调用
+     */
     @Autowired
     private PersonService personService;
 
 
+    /**
+     * 服务调用端
+     * @param name
+     * @return
+     */
     @RequestMapping(value = "/person", method = RequestMethod.GET, produces = "application/json")
     public Person caller(@RequestParam String name) {
         return personService.findPerson(name);
     }
 
 
+    /**
+     * 服务提供端
+     * @param name
+     * @return
+     */
     @RequestMapping(value = "/find", method = RequestMethod.GET)
     public Person findPerson(@RequestParam String name) {
         return new Person(name, 22);
