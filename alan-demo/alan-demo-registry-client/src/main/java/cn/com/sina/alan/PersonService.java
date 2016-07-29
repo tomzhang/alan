@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  *
  * Created by whf on 7/28/16.
  */
-@FeignClient(name = "person", fallback = Fallback.class)
+@FeignClient(name = "person", fallback = FeignHystrixFallback.class)
 public interface PersonService {
 
     /**
@@ -23,15 +23,5 @@ public interface PersonService {
      */
     @RequestMapping(value = "/find", method = RequestMethod.GET)
     Person findPerson(@RequestParam("name") String name);
-}
-
-/**
- * 该类需要实现 PersonService 接口,实现fallback逻辑
- */
-class Fallback implements PersonService {
-    @Override
-    public Person findPerson(@RequestParam("name") String name) {
-        return new Person("fallback method executed", 22);
-    }
 }
 
