@@ -1,5 +1,7 @@
 package cn.com.sina.alan.controller;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -7,4 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class TestCtr {
+    @Value("${config.timeout}")
+    private Integer timeout;
+
+    @RequestMapping(value = "/")
+    public String home() {
+        return timeout.toString();
+    }
 }
