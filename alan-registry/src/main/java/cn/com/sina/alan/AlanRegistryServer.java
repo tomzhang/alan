@@ -1,4 +1,4 @@
-package cn.com.sina.alan.config;
+package cn.com.sina.alan;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,10 +10,10 @@ import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 @SpringBootApplication
 @EnableEurekaServer
 public class AlanRegistryServer {
-    public static void main(String[] args) {
-        SpringApplication app = new SpringApplication(AlanRegistryServer.class);
-        app.setAddCommandLineProperties(true);
-        app.run(args);
-        //SpringApplication.run(AlanRegistryServer.class);
-    }
+	public static void main(String[] args) {
+		SpringApplication app = new SpringApplication(AlanRegistryServer.class);
+		app.setAddCommandLineProperties(false);
+		app.run(args);
+		//SpringApplication.run(AlanRegistryServer.class, args);
+	}
 }

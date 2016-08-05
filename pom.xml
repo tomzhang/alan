@@ -31,6 +31,7 @@
 		<module>alan-config</module>
 		<module>alan-demo</module>
 		<module>alan-provider</module>
+		<module>alan-registry</module>
 	</modules>
 
 	<!-- 全局属性定义 -->
