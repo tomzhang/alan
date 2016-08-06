@@ -27,29 +27,29 @@
         </javaModelGenerator>
 
         <!-- !!!! Mapper XML文件所在包 !!!! -->
-        <sqlMapGenerator targetPackage="cn.com.sina.alan.common.model.dao" targetProject="THIS_CONFIGURATION_IS_NOT_REQUIRED">
+        <sqlMapGenerator targetPackage="cn.com.sina.alan.common.dao" targetProject="THIS_CONFIGURATION_IS_NOT_REQUIRED">
             <property name="enableSubPackages" value="false"/>
         </sqlMapGenerator>
 
         <!-- !!!! Mapper Interface 所在包 !!!! -->
-        <javaClientGenerator targetPackage="cn.com.sina.alan.common.model.dao" targetProject="THIS_CONFIGURATION_IS_NOT_REQUIRED" type="XMLMAPPER">
+        <javaClientGenerator targetPackage="cn.com.sina.alan.common.dao" targetProject="THIS_CONFIGURATION_IS_NOT_REQUIRED" type="XMLMAPPER">
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
 
         <!-- !!!! Table Configurations !!!! -->
         <table tableName="advert_group" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               enableUpdateByExample="false"/>
+               enableUpdateByExample="false" domainObjectName="AdvertGroupModel" alias="ad_group"/>
 
         <table tableName="app" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               enableUpdateByExample="false"/>
+               enableUpdateByExample="false" domainObjectName="AppModel" alias="app"/>
 
         <table tableName="customer" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               enableUpdateByExample="false"/>
+               enableUpdateByExample="false" domainObjectName="CustomerModel" alias="customer"/>
 
         <table tableName="developer" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               enableUpdateByExample="false"/>
+               enableUpdateByExample="false" domainObjectName="DeveloperModel" alias="dev"/>
 
         <table tableName="key" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               enableUpdateByExample="false"/>
+               enableUpdateByExample="false" domainObjectName="KeyModel" alias="key"/>
     </context>
 </generatorConfiguration>
