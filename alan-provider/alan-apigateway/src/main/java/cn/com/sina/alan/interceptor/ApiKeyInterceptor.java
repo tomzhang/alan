@@ -5,6 +5,8 @@ import cn.com.sina.alan.exception.AlanException;
 import cn.com.sina.alan.exception.MissingRequestParmException;
 import cn.com.sina.alan.exception.RequestTimeoutException;
 import cn.com.sina.alan.utils.TimeUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -19,6 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Component
 public class ApiKeyInterceptor extends HandlerInterceptorAdapter {
+    private static final Logger log = LoggerFactory.getLogger(ApiKeyInterceptor.class);
+    
     @Value("${config.timeout}")
     private Integer timeout;
 
@@ -42,6 +46,7 @@ public class ApiKeyInterceptor extends HandlerInterceptorAdapter {
      * @param req
      */
     private void checkSign(SecurityParam securityParam, HttpServletRequest req) {
+        log.debug("检查签名: {}", securityParam.sign);
 
     }
 
@@ -53,9 +58,12 @@ public class ApiKeyInterceptor extends HandlerInterceptorAdapter {
      */
     private void checkRequestTimeout(SecurityParam securityParam) throws AlanException {
         long timestamp = securityParam.timestamp;
+        log.debug("验证时间戳: {}", timestamp);
+        
         boolean isTimeout = TimeUtils.isIntervalMoreThan(timestamp, timeout.intValue());
         if (isTimeout) {
             // 请求超时
+            log.info("时间戳 {} 超时", timestamp);
             throw new RequestTimeoutException();
         }
 
