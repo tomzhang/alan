@@ -1,4 +1,4 @@
-package cn.com.sina.alan.interceptor;
+package cn.com.sina.alan.gateway.interceptor;
 
 import cn.com.sina.alan.common.config.Const;
 import cn.com.sina.alan.common.exception.AlanException;

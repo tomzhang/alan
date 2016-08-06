@@ -1,4 +1,4 @@
-package cn.com.sina.alan.controller;
+package cn.com.sina.alan.gateway.controller;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
