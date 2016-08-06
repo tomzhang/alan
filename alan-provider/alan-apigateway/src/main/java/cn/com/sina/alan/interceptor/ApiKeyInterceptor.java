@@ -1,10 +1,10 @@
 package cn.com.sina.alan.interceptor;
 
-import cn.com.sina.alan.config.Const;
-import cn.com.sina.alan.exception.AlanException;
-import cn.com.sina.alan.exception.MissingRequestParmException;
-import cn.com.sina.alan.exception.RequestTimeoutException;
-import cn.com.sina.alan.utils.TimeUtils;
+import cn.com.sina.alan.common.config.Const;
+import cn.com.sina.alan.common.exception.AlanException;
+import cn.com.sina.alan.common.exception.MissingRequestParmException;
+import cn.com.sina.alan.common.exception.RequestTimeoutException;
+import cn.com.sina.alan.common.utils.TimeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;

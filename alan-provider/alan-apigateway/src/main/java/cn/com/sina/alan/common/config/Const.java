@@ -1,4 +1,4 @@
-package cn.com.sina.alan.config;
+package cn.com.sina.alan.common.config;
 
 /**
  * 常量定义

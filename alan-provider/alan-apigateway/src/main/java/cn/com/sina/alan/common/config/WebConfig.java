@@ -1,4 +1,4 @@
-package cn.com.sina.alan.config;
+package cn.com.sina.alan.common.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;

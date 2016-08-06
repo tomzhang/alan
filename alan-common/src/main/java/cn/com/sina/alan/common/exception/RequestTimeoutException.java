@@ -1,4 +1,4 @@
-package cn.com.sina.alan.exception;
+package cn.com.sina.alan.common.exception;
 
 /**
  * Created by whf on 8/5/16.

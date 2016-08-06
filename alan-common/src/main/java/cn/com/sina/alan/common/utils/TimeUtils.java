@@ -1,8 +1,6 @@
-package cn.com.sina.alan.utils;
+package cn.com.sina.alan.common.utils;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 /**
  * Created by whf on 8/5/16.
