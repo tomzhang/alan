@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
  * Created by whf on 7/29/16.
  */
 @Component
-public class FeignHystrixFallback implements PersonService {
+public class FeignHystrixFallback implements PersonRemoteService {
 
     @Override
     public Person findPerson(String name) {
