@@ -14,6 +14,7 @@
 
     <properties>
         <mybatis-spring-boot-starter>1.1.1</mybatis-spring-boot-starter>
+        <commons-codec-version>1.10</commons-codec-version>
     </properties>
 
 	<dependencies>
@@ -28,6 +29,13 @@
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>${mybatis-spring-boot-starter}</version>
+        </dependency>
+
+        <!-- HMAC加密算法用 -->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>${commons-codec-version}</version>
         </dependency>
 
         <dependency>

@@ -13,7 +13,6 @@
 	<url>http://spring-cloud.io/</url>
 
     <properties>
-        <commons-codec-version>1.10</commons-codec-version>
     </properties>
 
 	<dependencies>
@@ -33,12 +32,6 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- HMAC加密算法用 -->
-        <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
-            <version>${commons-codec-version}</version>
-        </dependency>
 
 
         <dependency>

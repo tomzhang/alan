@@ -37,7 +37,7 @@
         </javaClientGenerator>
 
         <!-- !!!! Table Configurations !!!! -->
-        <table tableName="advert_group" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+<!--        <table tableName="advert_group" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
                enableUpdateByExample="false" domainObjectName="AdvertGroupModel" alias="ad_group"/>
 
         <table tableName="app" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
@@ -47,9 +47,9 @@
                enableUpdateByExample="false" domainObjectName="CustomerModel" alias="customer"/>
 
         <table tableName="developer" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               enableUpdateByExample="false" domainObjectName="DeveloperModel" alias="dev"/>
+               enableUpdateByExample="false" domainObjectName="DeveloperModel" alias="dev"/>-->
 
-        <table tableName="key" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
-               enableUpdateByExample="false" domainObjectName="KeyModel" alias="key"/>
+        <table tableName="api_key" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false" domainObjectName="KeyModel" alias="ak"/>
     </context>
 </generatorConfiguration>
