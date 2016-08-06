@@ -11,4 +11,9 @@ public abstract class AlanException extends Exception {
     protected AlanException(String msg) {
         super(msg);
     }
+
+    @Override
+    public synchronized Throwable fillInStackTrace() {
+        return this;
+    }
 }
