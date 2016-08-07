@@ -4,6 +4,7 @@ import cn.com.sina.alan.common.exception.AlanException;
 import cn.com.sina.alan.common.exception.ApiKeyException;
 import cn.com.sina.alan.common.exception.MissingRequestParmException;
 import cn.com.sina.alan.common.exception.RequestTimeoutException;
+import cn.com.sina.alan.common.vo.AlanResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -30,24 +31,24 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(Throwable.class)
     @ResponseBody
-    private String handleException(HttpServletRequest req, Throwable ex) {
+    private AlanResponse handleException(HttpServletRequest req, Throwable ex) {
         if (ex instanceof AlanException) {
 
             if (ex instanceof ApiKeyException) {
-                return "invalid apikey";
+                return AlanResponse.failedResp;
             }
 
             if (ex instanceof MissingRequestParmException) {
                 MissingRequestParmException exception = (MissingRequestParmException) ex;
-                return exception.getMessage();
+                return new AlanResponse(exception.getMessage());
             }
 
             if (ex instanceof RequestTimeoutException) {
-                return "超时";
+                return AlanResponse.failedResp;
             }
         }
 
-        return ex.getMessage();
+        return new AlanResponse(ex.getMessage());
     }
 
     /**
