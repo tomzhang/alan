@@ -3,6 +3,8 @@ package cn.com.sina.alan.common.dao;
 import cn.com.sina.alan.common.model.AdvertGroupModel;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface AdvertGroupModelMapper {
     /**
@@ -52,4 +54,7 @@ public interface AdvertGroupModelMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(AdvertGroupModel record);
+
+    List<AdvertGroupModel> findBy(AdvertGroupModel example);
+    long countFindBy(AdvertGroupModel example);
 }

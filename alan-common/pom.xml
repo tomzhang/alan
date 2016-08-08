@@ -31,6 +31,12 @@
             <version>${mybatis-spring-boot-starter}</version>
         </dependency>
 
+        <!-- jackson -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+        </dependency>
+
         <!-- HMAC加密算法用 -->
         <dependency>
             <groupId>commons-codec</groupId>

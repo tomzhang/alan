@@ -1,6 +1,7 @@
 package cn.com.sina.alan.common.model;
 
 import cn.com.sina.alan.common.config.Const;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Created by whf on 8/6/16.
@@ -9,15 +10,18 @@ public abstract class PageableModel {
     /**
      * 页数, 从1开始
      */
-    private int page;
+    @JsonIgnore
+    private int page = 1;
     /**
      * 每页的条数
      */
-    private int size;
+    @JsonIgnore
+    private int size = Const.DEFAULT_PAGE_SIZE;
 
     /**
      * 对应mysql中limit语句的第一个参数
      */
+    @JsonIgnore
     private int skip;
 
     protected PageableModel() {
