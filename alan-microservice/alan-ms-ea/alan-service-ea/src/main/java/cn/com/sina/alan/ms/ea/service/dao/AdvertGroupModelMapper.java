@@ -1,6 +1,6 @@
-package cn.com.sina.alan.service.ea.dao;
+package cn.com.sina.alan.ms.ea.service.dao;
 
-import cn.com.sina.alan.service.ea.model.AdvertGroupModel;
+import cn.com.sina.alan.ms.ea.service.model.AdvertGroupModel;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

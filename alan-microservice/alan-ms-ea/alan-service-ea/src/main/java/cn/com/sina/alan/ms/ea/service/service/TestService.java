@@ -1,4 +1,4 @@
-package cn.com.sina.alan.service.ea.service;
+package cn.com.sina.alan.ms.ea.service.service;
 
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;

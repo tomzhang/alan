@@ -1,8 +1,8 @@
-package cn.com.sina.alan.service.ea.test.service;
+package cn.com.sina.alan.ms.ea.service.test.service;
 
-import cn.com.sina.alan.service.ea.model.AdvertGroupModel;
-import cn.com.sina.alan.service.ea.service.AdvertGroupService;
-import cn.com.sina.alan.service.ea.test.AlanCommonBaseTestClass;
+import cn.com.sina.alan.ms.ea.service.model.AdvertGroupModel;
+import cn.com.sina.alan.ms.ea.service.service.AdvertGroupService;
+import cn.com.sina.alan.ms.ea.service.test.AlanCommonBaseTestClass;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

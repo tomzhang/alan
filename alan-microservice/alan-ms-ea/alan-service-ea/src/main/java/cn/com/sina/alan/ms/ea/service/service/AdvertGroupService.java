@@ -1,10 +1,10 @@
-package cn.com.sina.alan.service.ea.service;
+package cn.com.sina.alan.ms.ea.service.service;
 
 import cn.com.sina.alan.common.exception.AlanException;
 import cn.com.sina.alan.common.exception.EntityNotFoundException;
 import cn.com.sina.alan.common.vo.PageResult;
-import cn.com.sina.alan.service.ea.dao.AdvertGroupModelMapper;
-import cn.com.sina.alan.service.ea.model.AdvertGroupModel;
+import cn.com.sina.alan.ms.ea.service.model.AdvertGroupModel;
+import cn.com.sina.alan.ms.ea.service.dao.AdvertGroupModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

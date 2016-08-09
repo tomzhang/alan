@@ -1,4 +1,4 @@
-package cn.com.sina.alan.service.ea.model;
+package cn.com.sina.alan.ms.ea.service.model;
 
 import cn.com.sina.alan.common.model.PageableModel;
 

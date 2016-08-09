@@ -1,4 +1,4 @@
-package cn.com.sina.alan.service.ea.test;
+package cn.com.sina.alan.ms.ea.service.test;
 
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.SpringApplicationConfiguration;

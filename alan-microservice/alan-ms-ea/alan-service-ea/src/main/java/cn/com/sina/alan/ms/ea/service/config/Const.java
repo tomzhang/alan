@@ -1,4 +1,4 @@
-package cn.com.sina.alan.service.ea.config;
+package cn.com.sina.alan.ms.ea.service.config;
 
 /**
  * 常量定义
