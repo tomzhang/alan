@@ -17,6 +17,7 @@
     <modules>
         <module>alan-service-ea</module>
         <module>alan-api-ea</module>
+        <module>alan-web-ea</module>
     </modules>
 
     <dependencies>

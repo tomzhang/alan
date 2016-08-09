@@ -1,0 +1,23 @@
+package cn.com.sina.alan.ms.ea.web.controller;
+
+import cn.com.sina.alan.ms.ea.api.vo.AdvertGroupVO;
+import cn.com.sina.alan.ms.ea.service.service.AdvertGroupService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+/**
+ * Created by whf on 8/9/16.
+ */
+@RestController
+public class TestCtr {
+    @Autowired
+    private AdvertGroupService adGroupService;
+
+    @RequestMapping(value = "/group/{groupId}", method = RequestMethod.GET)
+    public AdvertGroupVO findByGroupId(@PathVariable("groupId") Integer groupId) {
+        return adGroupService.findByGroupId(groupId);
+    }
+}

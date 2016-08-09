@@ -3,8 +3,11 @@ package cn.com.sina.alan.ms.ea.service.service;
 import cn.com.sina.alan.common.exception.AlanException;
 import cn.com.sina.alan.common.exception.EntityNotFoundException;
 import cn.com.sina.alan.common.vo.PageResult;
+import cn.com.sina.alan.ms.ea.api.service.IAdvertGroupService;
+import cn.com.sina.alan.ms.ea.api.vo.AdvertGroupVO;
 import cn.com.sina.alan.ms.ea.service.model.AdvertGroupModel;
 import cn.com.sina.alan.ms.ea.service.dao.AdvertGroupModelMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,10 +18,24 @@ import java.util.List;
  * Created by whf on 8/8/16.
  */
 @Service
-public class AdvertGroupService {
+public class AdvertGroupService implements IAdvertGroupService {
     @Autowired
     private AdvertGroupModelMapper adGroupMapper;
 
+    /**
+     * API接口
+     * @param adGroupId
+     * @return
+     */
+    @Override
+    public AdvertGroupVO findByGroupId(Integer adGroupId) {
+        AdvertGroupModel adGroupModel = findByPK(adGroupId);
+
+        AdvertGroupVO vo = new AdvertGroupVO();
+        BeanUtils.copyProperties(adGroupModel, vo);
+
+        return vo;
+    }
 
     /**
      * 主键查询

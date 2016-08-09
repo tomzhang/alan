@@ -18,6 +18,14 @@
         <commons-codec-version>1.10</commons-codec-version>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>cn.com.sina</groupId>
+            <artifactId>alan-api-ea</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
 
 	<build>
 		<plugins>
