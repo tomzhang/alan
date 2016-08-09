@@ -15,6 +15,7 @@
 
 	<modules>
 		<module>alan-provider-data</module>
+        <module>alan-service-ea</module>
 	</modules>
 
 </project>

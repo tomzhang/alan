@@ -38,6 +38,8 @@
 	<!-- 全局属性定义 -->
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <mybatis-spring-boot-starter>1.1.1</mybatis-spring-boot-starter>
+        <commons-codec-version>1.10</commons-codec-version>
 	</properties>
 
 	<!-- 设定仓库 -->

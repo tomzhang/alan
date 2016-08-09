@@ -1,11 +1,11 @@
 package cn.com.sina.alan.gateway.service;
 
-import cn.com.sina.alan.common.config.ApiKeyStatus;
-import cn.com.sina.alan.common.config.Const;
-import cn.com.sina.alan.common.dao.KeyModelMapper;
 import cn.com.sina.alan.common.exception.AlanException;
 import cn.com.sina.alan.common.exception.ApiKeyException;
-import cn.com.sina.alan.common.model.KeyModel;
+import cn.com.sina.alan.gateway.config.ApiKeyStatus;
+import cn.com.sina.alan.gateway.config.Const;
+import cn.com.sina.alan.gateway.dao.KeyModelMapper;
+import cn.com.sina.alan.gateway.model.KeyModel;
 import org.apache.commons.codec.digest.HmacUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
