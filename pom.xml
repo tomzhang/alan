@@ -30,7 +30,7 @@
 		<module>alan-common</module>
 		<module>alan-config</module>
 		<module>alan-demo</module>
-		<module>alan-provider</module>
+		<module>alan-microservice</module>
 		<module>alan-registry</module>
         <module>alan-apigateway</module>
 	</modules>

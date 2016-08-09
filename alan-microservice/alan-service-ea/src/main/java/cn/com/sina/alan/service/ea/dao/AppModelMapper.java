@@ -1,6 +1,6 @@
 package cn.com.sina.alan.service.ea.dao;
 
-import cn.com.sina.alan.common.model.AppModel;
+import cn.com.sina.alan.service.ea.model.AppModel;
 import org.springframework.stereotype.Repository;
 
 @Repository
