@@ -7,6 +7,7 @@
 		<groupId>cn.com.sina</groupId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
+
 	<artifactId>alan-microservice</artifactId>
 	<packaging>pom</packaging>
 	<name>${project.artifactId}</name>
@@ -15,7 +16,7 @@
 
 	<modules>
 		<module>alan-provider-data</module>
-        <module>alan-service-ea</module>
-	</modules>
+        <module>alan-ms-ea</module>
+    </modules>
 
 </project>
