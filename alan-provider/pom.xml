@@ -15,7 +15,6 @@
 
 	<modules>
 		<module>alan-provider-data</module>
-        <module>alan-apigateway</module>
 	</modules>
 
 </project>

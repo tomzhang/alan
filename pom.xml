@@ -32,6 +32,7 @@
 		<module>alan-demo</module>
 		<module>alan-provider</module>
 		<module>alan-registry</module>
+        <module>alan-apigateway</module>
 	</modules>
 
 	<!-- 全局属性定义 -->
