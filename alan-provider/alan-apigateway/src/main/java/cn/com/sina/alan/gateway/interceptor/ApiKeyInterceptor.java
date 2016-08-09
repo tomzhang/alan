@@ -5,7 +5,7 @@ import cn.com.sina.alan.common.exception.AlanException;
 import cn.com.sina.alan.common.exception.ApiKeyException;
 import cn.com.sina.alan.common.exception.MissingRequestParmException;
 import cn.com.sina.alan.common.exception.RequestTimeoutException;
-import cn.com.sina.alan.common.service.SecurityService;
+import cn.com.sina.alan.gateway.service.SecurityService;
 import cn.com.sina.alan.common.utils.TimeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

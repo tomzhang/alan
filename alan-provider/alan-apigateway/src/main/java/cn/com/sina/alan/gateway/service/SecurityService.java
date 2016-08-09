@@ -1,4 +1,4 @@
-package cn.com.sina.alan.common.service;
+package cn.com.sina.alan.gateway.service;
 
 import cn.com.sina.alan.common.config.ApiKeyStatus;
 import cn.com.sina.alan.common.config.Const;
