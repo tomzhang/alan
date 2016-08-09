@@ -18,7 +18,7 @@ import java.util.List;
  * Created by whf on 8/8/16.
  */
 @Service
-public class AdvertGroupService implements IAdvertGroupService {
+public class AdvertGroupService{
     @Autowired
     private AdvertGroupModelMapper adGroupMapper;
 
@@ -27,7 +27,6 @@ public class AdvertGroupService implements IAdvertGroupService {
      * @param adGroupId
      * @return
      */
-    @Override
     public AdvertGroupVO findByGroupId(Integer adGroupId) {
         AdvertGroupModel adGroupModel = findByPK(adGroupId);
 
