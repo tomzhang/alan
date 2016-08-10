@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * Created by whf on 8/9/16.
  */
 @FeignClient(name = "ea")
-public interface IAdvertGroupService {
+public interface AdvertGroupRemoteService {
 
     @RequestMapping(value = "/group/{groupId}")
     AdvertGroupVO findByGroupId(@PathVariable("groupId") Integer adGroupId);

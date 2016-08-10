@@ -46,7 +46,7 @@ public class RegistryClientApplication {
      */
     @RequestMapping(value = "/find", method = RequestMethod.GET)
     public Person findPerson(@RequestParam String name) {
-        int i = 2 / 0;
+        //int i = 2 / 0;
         return new Person(name, 22);
     }
 
