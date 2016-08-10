@@ -26,8 +26,11 @@ public class AdvertGroupService{
      * @param adGroupId
      * @return
      */
-    public AdvertGroupVO findByGroupId(Integer adGroupId) {
+    public AdvertGroupVO findByGroupId(Integer adGroupId) throws AlanException {
         AdvertGroupModel adGroupModel = findByPK(adGroupId);
+        if (null == adGroupModel) {
+            throw new EntityNotFoundException("广告组" + adGroupId + "不存在");
+        }
 
         AdvertGroupVO vo = new AdvertGroupVO();
         BeanUtils.copyProperties(adGroupModel, vo);

@@ -1,5 +1,6 @@
 package cn.com.sina.alan.ms.ea.web.controller;
 
+import cn.com.sina.alan.common.exception.AlanException;
 import cn.com.sina.alan.ms.ea.api.vo.AdvertGroupVO;
 import cn.com.sina.alan.ms.ea.service.service.AdvertGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class TestCtr {
     private AdvertGroupService adGroupService;
 
     @RequestMapping(value = "/group/{groupId}", method = RequestMethod.GET)
-    public AdvertGroupVO findByGroupId(@PathVariable("groupId") Integer groupId) {
+    public AdvertGroupVO findByGroupId(@PathVariable("groupId") Integer groupId) throws AlanException {
         return adGroupService.findByGroupId(groupId);
     }
 }

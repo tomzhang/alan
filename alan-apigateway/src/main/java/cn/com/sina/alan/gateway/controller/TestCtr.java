@@ -36,7 +36,6 @@ public class TestCtr {
     @RequestMapping(value = "/group/{id}")
     public AdvertGroupVO findAdGroup(@PathVariable("id") Integer groupId) {
         //return adGroupService.findByGroupId(groupId);
-        //return advertGroupRemoteService.findByGroupId(groupId);
-        return null;
+        return advertGroupRemoteService.findByGroupId(groupId);
     }
 }

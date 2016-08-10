@@ -25,6 +25,7 @@ import java.util.TreeMap;
 public class SecurityService {
     private static Logger log = LoggerFactory.getLogger(SecurityService.class);
 
+
     @Autowired
     private KeyModelMapper keyMapper;
 
@@ -75,9 +76,11 @@ public class SecurityService {
 
         Map<String, String> sortedMap = new TreeMap<>(parmMap);
         sortedMap.entrySet().forEach( entry -> {
-            sb.append(entry.getKey());
-            sb.append("=");
-            sb.append(entry.getValue());
+            if (false == entry.getKey().equalsIgnoreCase(Const.RequestParam.SIGN)) {
+                sb.append(entry.getKey());
+                sb.append("=");
+                sb.append(entry.getValue());
+            }
         } );
 
         String sequence = sb.toString();
