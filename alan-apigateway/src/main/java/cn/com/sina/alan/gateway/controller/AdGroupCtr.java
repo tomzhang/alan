@@ -1,6 +1,8 @@
 package cn.com.sina.alan.gateway.controller;
 
+import cn.com.sina.alan.common.exception.AlanException;
 import cn.com.sina.alan.ms.ea.api.service.AdvertGroupRemoteService;
+import cn.com.sina.alan.ms.ea.api.service.AdvertGroupServiceWrapper;
 import cn.com.sina.alan.ms.ea.api.vo.AdvertGroupVO;
 import cn.com.sina.alan.ms.ea.api.vo.ResponseWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * Created by whf on 8/5/16.
@@ -19,8 +23,11 @@ public class AdGroupCtr {
 
     //private HelloService helloService;
     //@Qualifier("eaFeignClient")
+/*    @Autowired
+    private AdvertGroupRemoteService advertGroupRemoteService;*/
+
     @Autowired
-    private AdvertGroupRemoteService advertGroupRemoteService;
+    private AdvertGroupServiceWrapper wrapper;
 
 
 /*    @Autowired
@@ -32,10 +39,13 @@ public class AdGroupCtr {
     }
 
     @RequestMapping(value = "/group/{id}")
-    public ResponseWrapper findAdGroup(@PathVariable("id") Integer groupId) {
+    public List<AdvertGroupVO> findAdGroup(@PathVariable("id") Integer groupId) throws AlanException {
         //return adGroupService.findByGroupId(groupId);
-        ResponseWrapper<AdvertGroupVO> resp = advertGroupRemoteService.findByGroupId(groupId);
-        resp.getData().getGroupId();
-        return resp;
+/*        ResponseWrapper<AdvertGroupVO> resp = advertGroupRemoteService.findByGroupId(groupId);
+        resp.getData().getGroupId();*/
+
+        //return resp;
+
+        return wrapper.findByGroupId(groupId);
     }
 }

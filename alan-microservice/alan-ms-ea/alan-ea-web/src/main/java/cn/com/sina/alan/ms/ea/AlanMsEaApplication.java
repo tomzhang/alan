@@ -4,7 +4,9 @@ import cn.com.sina.alan.ms.ea.web.config.MyJacksonHttpMessageConverter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 
 /**
@@ -12,6 +14,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
  */
 @SpringBootApplication
 @EnableEurekaClient
+//@EnableFeignClients
 public class AlanMsEaApplication {
 
     public static void main(String[] args) {
