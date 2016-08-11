@@ -1,6 +1,7 @@
 package cn.com.sina.alan.ms.ea.api.service;
 
 import cn.com.sina.alan.ms.ea.api.vo.AdvertGroupVO;
+import cn.com.sina.alan.ms.ea.api.vo.ResponseWrapper;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,5 +13,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public interface AdvertGroupRemoteService {
 
     @RequestMapping(value = "/group/{groupId}")
-    AdvertGroupVO findByGroupId(@PathVariable("groupId") Integer adGroupId);
+    ResponseWrapper findByGroupId(@PathVariable("groupId") Integer adGroupId);
 }

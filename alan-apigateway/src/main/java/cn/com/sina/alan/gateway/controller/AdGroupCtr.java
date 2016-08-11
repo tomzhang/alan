@@ -2,6 +2,7 @@ package cn.com.sina.alan.gateway.controller;
 
 import cn.com.sina.alan.ms.ea.api.service.AdvertGroupRemoteService;
 import cn.com.sina.alan.ms.ea.api.vo.AdvertGroupVO;
+import cn.com.sina.alan.ms.ea.api.vo.ResponseWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,7 +32,7 @@ public class AdGroupCtr {
     }
 
     @RequestMapping(value = "/group/{id}")
-    public AdvertGroupVO findAdGroup(@PathVariable("id") Integer groupId) {
+    public ResponseWrapper findAdGroup(@PathVariable("id") Integer groupId) {
         //return adGroupService.findByGroupId(groupId);
         return advertGroupRemoteService.findByGroupId(groupId);
     }
