@@ -15,8 +15,7 @@
 	<url>http://spring-cloud.io</url>
 
 	<modules>
-		<module>alan-provider-data</module>
-        <module>alan-ms-ea</module>
-    </modules>
+		<module>alan-ms-ea</module>
+	</modules>
 
 </project>

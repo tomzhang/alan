@@ -24,7 +24,7 @@
         <!-- ea接口 -->
         <dependency>
             <groupId>cn.com.sina</groupId>
-            <artifactId>alan-api-ea</artifactId>
+            <artifactId>alan-ea-api</artifactId>
             <version>${project.version}</version>
         </dependency>
 
