@@ -3,13 +3,13 @@ package cn.com.sina.alan.ms.ea.api.vo;
 /**
  * Created by whf on 8/11/16.
  */
-public class ResponseWrapper {
+public class ResponseWrapper<T> {
     private int code = 0;
-    private Object data;
+    private T data;
 
     public ResponseWrapper() {}
 
-    public ResponseWrapper(Object data) {
+    public ResponseWrapper(T data) {
         this.data = data;
     }
 
@@ -21,11 +21,11 @@ public class ResponseWrapper {
         this.code = code;
     }
 
-    public Object getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(Object data) {
+    public void setData(T data) {
         this.data = data;
     }
 }

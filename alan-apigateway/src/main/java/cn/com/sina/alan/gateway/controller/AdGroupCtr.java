@@ -34,6 +34,8 @@ public class AdGroupCtr {
     @RequestMapping(value = "/group/{id}")
     public ResponseWrapper findAdGroup(@PathVariable("id") Integer groupId) {
         //return adGroupService.findByGroupId(groupId);
-        return advertGroupRemoteService.findByGroupId(groupId);
+        ResponseWrapper<AdvertGroupVO> resp = advertGroupRemoteService.findByGroupId(groupId);
+        resp.getData().getGroupId();
+        return resp;
     }
 }

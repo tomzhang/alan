@@ -13,5 +13,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public interface AdvertGroupRemoteService {
 
     @RequestMapping(value = "/group/{groupId}")
-    ResponseWrapper findByGroupId(@PathVariable("groupId") Integer adGroupId);
+    ResponseWrapper<AdvertGroupVO> findByGroupId(@PathVariable("groupId") Integer adGroupId);
 }
