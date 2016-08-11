@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by whf on 8/9/16.
  */
 @RestController
-public class TestCtr {
+public class AdGroupCtr {
     @Autowired
     private AdvertGroupAPIService adGroupService;
 

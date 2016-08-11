@@ -1,11 +1,8 @@
 package cn.com.sina.alan.gateway.controller;
 
-import cn.com.sina.alan.gateway.service.FeignService;
 import cn.com.sina.alan.ms.ea.api.service.AdvertGroupRemoteService;
-import cn.com.sina.alan.ms.ea.api.service.HelloService;
 import cn.com.sina.alan.ms.ea.api.vo.AdvertGroupVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by whf on 8/5/16.
  */
 @RestController
-public class TestCtr {
+public class AdGroupCtr {
     @Value("${config.timeout}")
     private Integer timeout;
 
