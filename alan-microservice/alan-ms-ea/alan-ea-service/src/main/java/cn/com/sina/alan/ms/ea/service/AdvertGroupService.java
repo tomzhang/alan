@@ -1,4 +1,4 @@
-package cn.com.sina.alan.ms.ea.service.service;
+package cn.com.sina.alan.ms.ea.service;
 
 import cn.com.sina.alan.common.exception.AlanException;
 import cn.com.sina.alan.common.exception.EntityNotFoundException;

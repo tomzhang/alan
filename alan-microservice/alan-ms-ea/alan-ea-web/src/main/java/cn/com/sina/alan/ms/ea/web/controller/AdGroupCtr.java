@@ -2,8 +2,7 @@ package cn.com.sina.alan.ms.ea.web.controller;
 
 import cn.com.sina.alan.common.exception.AlanException;
 import cn.com.sina.alan.ms.ea.api.vo.AdvertGroupVO;
-import cn.com.sina.alan.ms.ea.service.service.AdvertGroupService;
-import cn.com.sina.alan.ms.ea.service.service.api.AdvertGroupAPIService;
+import cn.com.sina.alan.ms.ea.service.api.AdvertGroupAPIService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
