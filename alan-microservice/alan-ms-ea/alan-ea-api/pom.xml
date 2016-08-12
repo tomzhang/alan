@@ -19,6 +19,13 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-feign</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>cn.com.sina</groupId>
+            <artifactId>alan-autoconfig</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
     </dependencies>
 
 </project>

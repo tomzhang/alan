@@ -16,6 +16,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 异常处理器
@@ -28,9 +29,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(Throwable.class)
     @ResponseBody
-    private AlanResponse handleException(HttpServletRequest req, Throwable ex) {
-        if (ex instanceof AlanEaException) {
-            return new AlanResponse(((AlanException) ex).getCode(), ex.getMessage());
+    private AlanResponse handleException(HttpServletRequest req, HttpServletResponse resp, Throwable ex) {
+        resp.setHeader("X-Alan-Code", "1001");
+        resp.setHeader("X-Alan-Message", "not found haha");
+
+        if (ex instanceof AlanException) {
+            return new AlanResponse(((AlanException) ex).getCode(), ((AlanException) ex).getMsg());
         }
 
         return new AlanResponse(ex.getMessage());

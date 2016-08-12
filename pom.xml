@@ -33,7 +33,8 @@
 		<module>alan-microservice</module>
 		<module>alan-registry</module>
 		<module>alan-apigateway</module>
-	</modules>
+        <module>alan-autoconfig</module>
+    </modules>
 
 	<!-- 全局属性定义 -->
 	<properties>

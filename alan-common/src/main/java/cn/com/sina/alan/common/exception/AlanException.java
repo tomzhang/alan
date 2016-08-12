@@ -2,24 +2,32 @@ package cn.com.sina.alan.common.exception;
 
 import cn.com.sina.alan.common.config.Const;
 
+import java.io.IOException;
+
 /**
  * Created by whf on 8/5/16.
  */
-public abstract class AlanException extends Exception {
+public class AlanException extends IOException {
     private int code = Const.ERROR_CODE_SUCCESS;
+    private String msg = "";
 
-    protected AlanException() {
+    public AlanException() {
         super();
     }
 
-    protected AlanException(String msg) {
+    public AlanException(String msg) {
         super(msg);
+        this.msg = msg;
     }
 
-    protected AlanException(int code, String msg) {
+    public AlanException(int code, String msg) {
         this(msg);
 
         this.code = code;
+    }
+
+    public String getMsg() {
+        return this.msg;
     }
 
     public int getCode() {

@@ -6,6 +6,7 @@ import cn.com.sina.alan.common.exception.MissingRequestParmException;
 import cn.com.sina.alan.common.exception.RequestTimeoutException;
 import cn.com.sina.alan.common.vo.AlanResponse;
 import cn.com.sina.alan.ms.ea.api.exception.AlanEaException;
+import feign.FeignException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -33,23 +34,14 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(Throwable.class)
     @ResponseBody
     private AlanResponse handleException(HttpServletRequest req, Throwable ex) {
-        if (ex instanceof AlanException) {
+        if (ex instanceof FeignException) {
+            if (ex.getCause() instanceof AlanException) {
 
-            if (ex instanceof ApiKeyException) {
-                return AlanResponse.failedResp;
+                return new AlanResponse(((AlanException) ex.getCause()).getCode(), ((AlanException) ex.getCause()).getMsg());
             }
 
-            if (ex instanceof MissingRequestParmException) {
-                MissingRequestParmException exception = (MissingRequestParmException) ex;
-                return new AlanResponse(exception.getMessage());
-            }
-
-            if (ex instanceof RequestTimeoutException) {
-                return AlanResponse.failedResp;
-            }
-
-            return new AlanResponse(((AlanException) ex).getCode(), ex.getMessage());
         }
+
 
         return new AlanResponse(ex.getMessage());
     }

@@ -27,4 +27,12 @@ public class Const {
         public static final String PUBLIC_KEY = "pk";
     }
 
+    /**
+     * Http请求头
+     */
+    public static class HeaderParam {
+        public static final String CODE = "X-Alan-Code";
+        public static final String MESSAGE = "X-Alan-Message";
+    }
+
 }
