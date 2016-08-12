@@ -47,6 +47,11 @@ public class AlanResponse {
         this.msg = ec.msg();
     }
 
+    public AlanResponse(int code, String msg) {
+        this.code = code;
+        this.msg = msg;
+    }
+
     /**
      * 结果为失败, 指定错误信息
      * @param msg

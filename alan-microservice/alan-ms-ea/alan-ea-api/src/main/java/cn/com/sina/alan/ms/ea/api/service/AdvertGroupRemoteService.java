@@ -1,21 +1,32 @@
 package cn.com.sina.alan.ms.ea.api.service;
 
-import cn.com.sina.alan.common.exception.AlanException;
+import cn.com.sina.alan.common.config.Const;
+import cn.com.sina.alan.ms.ea.api.exception.AlanEaException;
+import cn.com.sina.alan.ms.ea.api.exception.EaErrorCode;
+import cn.com.sina.alan.ms.ea.api.service.feign.AdvertGroupFeignClient;
 import cn.com.sina.alan.ms.ea.api.vo.AdvertGroupVO;
-import cn.com.sina.alan.ms.ea.api.vo.ResponseWrapper;
+import cn.com.sina.alan.common.vo.ResponseWrapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
-import org.springframework.cloud.netflix.feign.FeignClient;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.stereotype.Service;
+
 
 /**
- * Created by whf on 8/9/16.
+ * Created by whf on 8/11/16.
  */
 @ConditionalOnMissingClass("cn.com.sina.alan.ms.ea.AlanMsEaApplication")
-@FeignClient(name = "ea")
-public interface AdvertGroupRemoteService {
+@Service
+public class AdvertGroupRemoteService {
+    @Autowired
+    private AdvertGroupFeignClient service;
 
-    @RequestMapping(value = "/group/{groupId}")
-    ResponseWrapper<AdvertGroupVO> findByGroupId(@PathVariable("groupId") Integer adGroupId)
-            throws AlanException;
+    public AdvertGroupVO findByGroupId(Integer adGroupId) throws AlanEaException {
+        ResponseWrapper<AdvertGroupVO> resp = service.findByGroupId(adGroupId);
+
+        if (resp.getCode() != Const.ERROR_CODE_SUCCESS) {
+            throw new AlanEaException(EaErrorCode.AD_GROUP_NOT_FOUND);
+        }
+
+        return resp.getData();
+    }
 }

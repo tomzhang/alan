@@ -14,6 +14,9 @@ public class Const {
 
     public static final int AVERAGE_PARM_LENGTH = 15;
 
+    public static final int ERROR_CODE_SUCCESS = 0;
+    public static final String ERROR_CODE_SUCCESS_MSG = "success";
+
     /**
      * 请求参数名
      */

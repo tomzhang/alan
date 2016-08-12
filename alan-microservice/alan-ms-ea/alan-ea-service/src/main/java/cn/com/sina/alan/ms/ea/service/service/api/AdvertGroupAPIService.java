@@ -2,6 +2,8 @@ package cn.com.sina.alan.ms.ea.service.service.api;
 
 import cn.com.sina.alan.common.exception.AlanException;
 import cn.com.sina.alan.common.exception.EntityNotFoundException;
+import cn.com.sina.alan.ms.ea.api.exception.AlanEaException;
+import cn.com.sina.alan.ms.ea.api.exception.EaErrorCode;
 import cn.com.sina.alan.ms.ea.api.vo.AdvertGroupVO;
 import cn.com.sina.alan.ms.ea.service.model.AdvertGroupModel;
 import cn.com.sina.alan.ms.ea.service.service.AdvertGroupService;
@@ -23,10 +25,10 @@ public class AdvertGroupAPIService {
      * @param adGroupId
      * @return
      */
-    public AdvertGroupVO findByGroupId(Integer adGroupId) throws AlanException {
+    public AdvertGroupVO findByGroupId(Integer adGroupId) throws AlanEaException {
         AdvertGroupModel adGroupModel = advertGroupService.findByPK(adGroupId);
         if (null == adGroupModel) {
-            throw new EntityNotFoundException("广告组" + adGroupId + "不存在");
+            throw new AlanEaException(EaErrorCode.AD_GROUP_NOT_FOUND.code(), EaErrorCode.AD_GROUP_NOT_FOUND.msg());
         }
 
         AdvertGroupVO vo = new AdvertGroupVO();

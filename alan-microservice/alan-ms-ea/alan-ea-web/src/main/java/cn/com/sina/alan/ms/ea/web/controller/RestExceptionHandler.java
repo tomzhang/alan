@@ -1,9 +1,6 @@
-package cn.com.sina.alan.gateway.controller;
+package cn.com.sina.alan.ms.ea.web.controller;
 
 import cn.com.sina.alan.common.exception.AlanException;
-import cn.com.sina.alan.common.exception.ApiKeyException;
-import cn.com.sina.alan.common.exception.MissingRequestParmException;
-import cn.com.sina.alan.common.exception.RequestTimeoutException;
 import cn.com.sina.alan.common.vo.AlanResponse;
 import cn.com.sina.alan.ms.ea.api.exception.AlanEaException;
 import org.slf4j.Logger;
@@ -19,7 +16,6 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.MissingResourceException;
 
 /**
  * 异常处理器
@@ -33,21 +29,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(Throwable.class)
     @ResponseBody
     private AlanResponse handleException(HttpServletRequest req, Throwable ex) {
-        if (ex instanceof AlanException) {
-
-            if (ex instanceof ApiKeyException) {
-                return AlanResponse.failedResp;
-            }
-
-            if (ex instanceof MissingRequestParmException) {
-                MissingRequestParmException exception = (MissingRequestParmException) ex;
-                return new AlanResponse(exception.getMessage());
-            }
-
-            if (ex instanceof RequestTimeoutException) {
-                return AlanResponse.failedResp;
-            }
-
+        if (ex instanceof AlanEaException) {
             return new AlanResponse(((AlanException) ex).getCode(), ex.getMessage());
         }
 
