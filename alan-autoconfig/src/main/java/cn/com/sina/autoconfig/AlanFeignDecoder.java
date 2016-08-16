@@ -31,7 +31,6 @@ public class AlanFeignDecoder extends ResponseEntityDecoder {
         String code = getHeaderValue(headers.get(Const.HeaderParam.CODE));
         String msg = getHeaderValue(headers.get(Const.HeaderParam.MESSAGE));
 
-        System.out.println("OKOKKOKOK");
         log.debug("解码: code = {}, msg = {}", code, msg);
 
 

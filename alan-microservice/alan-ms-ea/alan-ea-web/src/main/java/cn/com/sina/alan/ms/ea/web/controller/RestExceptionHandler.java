@@ -1,6 +1,8 @@
 package cn.com.sina.alan.ms.ea.web.controller;
 
 import cn.com.sina.alan.common.exception.AlanException;
+import cn.com.sina.alan.common.http.ResponseResult;
+import cn.com.sina.alan.common.utils.HttpUtils;
 import cn.com.sina.alan.common.vo.AlanResponse;
 import cn.com.sina.alan.ms.ea.api.exception.AlanEaException;
 import org.slf4j.Logger;
@@ -29,15 +31,21 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(Throwable.class)
     @ResponseBody
-    private AlanResponse handleException(HttpServletRequest req, HttpServletResponse resp, Throwable ex) {
-        resp.setHeader("X-Alan-Code", "1001");
-        resp.setHeader("X-Alan-Message", "not found haha");
+    private String handleException(HttpServletRequest req, HttpServletResponse resp, Throwable ex) {
 
         if (ex instanceof AlanException) {
-            return new AlanResponse(((AlanException) ex).getCode(), ((AlanException) ex).getMsg());
+            AlanException exception = (AlanException) ex;
+
+            ResponseResult result = new ResponseResult(exception.getCode(), exception.getMessage());
+            HttpUtils.putResponseStatus(resp, result);
+
+            return "";
         }
 
-        return new AlanResponse(ex.getMessage());
+        ResponseResult result = new ResponseResult(-1, "system error");
+        HttpUtils.putResponseStatus(resp, result);
+
+        return "";
     }
 
     /**
