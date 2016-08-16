@@ -31,6 +31,8 @@ public class Const {
      * Http请求头
      */
     public static class HeaderParam {
+        public static final String PREFIX = "X-Alan-Custom-";
+
         public static final String CODE = "X-Alan-Code";
         public static final String MESSAGE = "X-Alan-Message";
     }
