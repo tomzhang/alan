@@ -1,5 +1,7 @@
 package cn.com.sina.alan.common.http;
 
+import cn.com.sina.alan.common.config.ErrorCode;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,6 +21,8 @@ public class ResponseResult {
 
     private Map<String, String> customHeaders;
 
+    private static ResponseResult successResult = new ResponseResult(ErrorCode.SUCCESS.code(), ErrorCode.SUCCESS.msg());
+
     public ResponseResult(int code, String message) {
         this.code = code;
         this.message = message;
@@ -29,6 +33,10 @@ public class ResponseResult {
 
         this.customHeaders = new HashMap<>(customHeaders.size());
         this.customHeaders.putAll(customHeaders);
+    }
+
+    public static ResponseResult getSuccessResult() {
+        return ResponseResult.successResult;
     }
 
     /**

@@ -1,4 +1,4 @@
-package cn.com.sina.autoconfig;
+package cn.com.sina.alan.autoconfig;
 
 import cn.com.sina.alan.common.exception.AlanException;
 import feign.Response;

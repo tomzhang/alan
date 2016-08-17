@@ -1,6 +1,6 @@
 package cn.com.sina.alan.gateway;
 
-import cn.com.sina.autoconfig.AlanFeignConfig;
+import cn.com.sina.alan.autoconfig.AlanFeignConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;

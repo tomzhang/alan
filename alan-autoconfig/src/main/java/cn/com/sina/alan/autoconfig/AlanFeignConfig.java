@@ -1,4 +1,4 @@
-package cn.com.sina.autoconfig;
+package cn.com.sina.alan.autoconfig;
 
 import feign.codec.Decoder;
 import feign.codec.ErrorDecoder;
