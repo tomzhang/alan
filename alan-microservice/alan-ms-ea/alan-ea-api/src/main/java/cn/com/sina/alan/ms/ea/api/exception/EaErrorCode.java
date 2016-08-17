@@ -4,8 +4,8 @@ package cn.com.sina.alan.ms.ea.api.exception;
  * Created by whf on 8/12/16.
  */
 public enum EaErrorCode {
-    AD_GROUP_NOT_FOUND(10001, "广告组未找到"),
-    URL_NOT_FOUND(10002, "URL不存在");
+    AD_GROUP_NOT_FOUND(10001, "advert group not found"),
+    URL_NOT_FOUND(10002, "URL not found");
 
     private int code;
     private String msg;

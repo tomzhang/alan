@@ -7,7 +7,7 @@ import java.io.IOException;
 /**
  * Created by whf on 8/5/16.
  */
-public class AlanException extends IOException {
+public class AlanException extends RuntimeException {
     private int code = Const.ERROR_CODE_SUCCESS;
     private String msg = "";
 

@@ -62,12 +62,12 @@ public class AdvertGroupService{
     @Transactional(readOnly = false, rollbackFor = Throwable.class)
     public void updateByPK(AdvertGroupModel example) throws AlanException {
         if (null == example.getGroupId()) {
-            throw new IllegalArgumentException("advertGroupId不能为空");
+            throw new IllegalArgumentException("advertGroupId cannot be null");
         }
 
         int affected = adGroupMapper.updateByPrimaryKeySelective(example);
         if (affected <= 0) {
-            throw new EntityNotFoundException("广告组" + example.getGroupId() + "不存在");
+            throw new EntityNotFoundException("advert group " + example.getGroupId() + " doesn't exist");
         }
     }
 }
