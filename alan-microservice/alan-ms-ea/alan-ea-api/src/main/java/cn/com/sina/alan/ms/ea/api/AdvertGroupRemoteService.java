@@ -1,5 +1,6 @@
 package cn.com.sina.alan.ms.ea.api;
 
+import cn.com.sina.alan.common.exception.AlanException;
 import cn.com.sina.alan.ms.ea.api.vo.AdvertGroupVO;
 import cn.com.sina.alan.common.vo.ResponseWrapper;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
@@ -18,7 +19,8 @@ import java.util.List;
 public interface AdvertGroupRemoteService {
 
     @RequestMapping(value = "/group/{groupId}", method = RequestMethod.GET)
-    AdvertGroupVO findByGroupId(@PathVariable("groupId") Integer adGroupId);
+    AdvertGroupVO findByGroupId(@PathVariable("groupId") Integer adGroupId)
+            throws AlanException;
 
 /*    @RequestMapping(value = "/group/list", method = RequestMethod.GET)
     ResponseWrapper<List<AdvertGroupVO>> list(AdvertGroupVO vo);*/

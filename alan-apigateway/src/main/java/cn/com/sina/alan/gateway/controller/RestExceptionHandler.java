@@ -40,6 +40,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         }
 
 
+        ex.printStackTrace();
         return new AlanResponse(ex.getMessage());
     }
 

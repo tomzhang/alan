@@ -1,6 +1,7 @@
 package cn.com.sina.alan.gateway.controller;
 
 import cn.com.sina.alan.common.exception.AlanException;
+import cn.com.sina.alan.gateway.service.AdvertGroupService;
 import cn.com.sina.alan.ms.ea.api.AdvertGroupRemoteService;
 import cn.com.sina.alan.ms.ea.api.vo.AdvertGroupVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class AdGroupCtr {
     @Autowired
     private AdvertGroupRemoteService remoteService;
 
+    @Autowired
+    private AdvertGroupService advertGroupService;
+
 
     @RequestMapping(value = "/")
     public String home() {
@@ -29,7 +33,8 @@ public class AdGroupCtr {
 
     @RequestMapping(value = "/group/{id}")
     public AdvertGroupVO findAdGroup(@PathVariable("id") Integer groupId) throws AlanException {
-        return remoteService.findByGroupId(groupId);
+        return advertGroupService.findById(groupId);
+        //return remoteService.findByGroupId(groupId);
     }
 
 /*    @RequestMapping(value = "/group/list", method = RequestMethod.GET)
