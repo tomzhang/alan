@@ -31,21 +31,17 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(Throwable.class)
     @ResponseBody
-    private String handleException(HttpServletRequest req, HttpServletResponse resp, Throwable ex) {
+    private ResponseResult handleException(HttpServletRequest req, HttpServletResponse resp, Throwable ex) {
 
         if (ex instanceof AlanException) {
             AlanException exception = (AlanException) ex;
 
-            ResponseResult result = new ResponseResult(exception.getCode(), exception.getMessage());
-            HttpUtils.putResponseStatus(resp, result);
-
-            return "";
+            resp.setStatus(600);
+            return new ResponseResult(exception.getCode(), exception.getMessage());
         }
 
-        ResponseResult result = new ResponseResult(-1, "system error");
-        HttpUtils.putResponseStatus(resp, result);
-
-        return "";
+        resp.setStatus(600);
+        return new ResponseResult(-1, "system error");
     }
 
     /**

@@ -1,5 +1,6 @@
 package cn.com.sina.alan.autoconfig;
 
+import cn.com.sina.alan.common.exception.AlanException;
 import feign.Response;
 import feign.codec.DecodeException;
 import feign.codec.Decoder;
@@ -29,8 +30,9 @@ public class AlanFeignDecoder extends ResponseEntityDecoder {
         log.debug("解码: code = {}, msg = {}", code, msg);
 
 
-        if (false == code.equals("0")) {
-            throw new AlanException(Integer.parseInt(code), msg);
+*/
+/*        if (true) {
+            throw new AlanException(-1, "test");
         }*/
 
         return super.decode(response, type);

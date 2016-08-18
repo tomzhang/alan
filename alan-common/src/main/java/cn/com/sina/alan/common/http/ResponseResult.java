@@ -2,6 +2,7 @@ package cn.com.sina.alan.common.http;
 
 import cn.com.sina.alan.common.config.ErrorCode;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,6 +54,10 @@ public class ResponseResult {
     }
 
     public Map<String, String> getCustomHeaders() {
+        if (null == this.customHeaders) {
+            return Collections.emptyMap();
+        }
+
         return this.customHeaders;
     }
 
@@ -74,5 +79,15 @@ public class ResponseResult {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("ResponseResult{");
+        sb.append("code=").append(code);
+        sb.append(", message='").append(message).append('\'');
+        sb.append(", customHeaders=").append(customHeaders);
+        sb.append('}');
+        return sb.toString();
     }
 }

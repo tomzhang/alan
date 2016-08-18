@@ -35,7 +35,8 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ResponseBody
     private AlanResponse handleException(HttpServletRequest req, Throwable ex) {
         if (ex instanceof AlanException) {
-            return new AlanResponse(((AlanException) ex.getCause()).getCode(), ((AlanException) ex.getCause()).getMsg());
+            AlanException exception = (AlanException) ex;
+            return new AlanResponse(exception.getCode(), exception.getMsg());
         }
 
 

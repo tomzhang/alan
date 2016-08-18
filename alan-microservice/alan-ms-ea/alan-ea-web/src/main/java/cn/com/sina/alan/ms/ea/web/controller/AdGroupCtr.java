@@ -1,6 +1,7 @@
 package cn.com.sina.alan.ms.ea.web.controller;
 
 import cn.com.sina.alan.common.exception.AlanException;
+import cn.com.sina.alan.common.http.ResponseResult;
 import cn.com.sina.alan.ms.ea.api.vo.AdvertGroupVO;
 import cn.com.sina.alan.ms.ea.service.AdvertGroupService;
 import cn.com.sina.alan.ms.ea.service.api.AdvertGroupAPIService;
