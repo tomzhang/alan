@@ -2,12 +2,10 @@ package cn.com.sina.alan.autoconfig;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
@@ -18,16 +16,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 public class AlanWebConfig extends WebMvcConfigurerAdapter {
     public static final Logger log = LoggerFactory.getLogger(AlanWebConfig.class);
 
-    @Autowired(required = false)
-    private AlanWebInterceptor alanWebInterceptor;
-
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        if (null != alanWebInterceptor) {
-            log.info("AlanWebInterceptor已启用");
-            registry.addInterceptor(alanWebInterceptor).addPathPatterns("/**");
-        }
-    }
 
     /**
      * 只有当不是ApiGateway时才有效
@@ -40,13 +28,4 @@ public class AlanWebConfig extends WebMvcConfigurerAdapter {
         return new AlanJsonHttpMessageConverter();
     }
 
-    /**
-     * 只有当不是ApiGateway时才有效
-     * @return
-     */
-    @Bean
-    @ConditionalOnMissingClass("cn.com.sina.alan.gateway.ApiGatewayApplication")
-    public AlanWebInterceptor alanWebInterceptor() {
-        return new AlanWebInterceptor();
-    }
 }

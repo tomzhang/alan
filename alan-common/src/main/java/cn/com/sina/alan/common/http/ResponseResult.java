@@ -2,6 +2,7 @@ package cn.com.sina.alan.common.http;
 
 import cn.com.sina.alan.common.config.ErrorCode;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,15 +23,22 @@ public class ResponseResult {
 
     private Map<String, String> customHeaders;
 
+    private HttpServletResponse response;
+
     private static ResponseResult successResult = new ResponseResult(ErrorCode.SUCCESS.code(), ErrorCode.SUCCESS.msg());
 
-    public ResponseResult(int code, String message) {
+    protected ResponseResult(int code, String message) {
         this.code = code;
         this.message = message;
     }
 
-    public ResponseResult(int code, String message, Map<String, String> customHeaders) {
+    public ResponseResult(int code, String message, HttpServletResponse resp) {
         this(code, message);
+        this.response = resp;
+    }
+
+    public ResponseResult(int code, String message, Map<String, String> customHeaders, HttpServletResponse resp) {
+        this(code, message, resp);
 
         this.customHeaders = new HashMap<>(customHeaders.size());
         this.customHeaders.putAll(customHeaders);
@@ -79,6 +87,10 @@ public class ResponseResult {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public HttpServletResponse getResponse() {
+        return response;
     }
 
     @Override

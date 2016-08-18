@@ -23,8 +23,10 @@ public class AlanJsonHttpMessageConverter extends MappingJackson2HttpMessageConv
     protected void writeInternal(Object object, Type type, HttpOutputMessage outputMessage) throws IOException, HttpMessageNotWritableException {
         // controller返回ResponseResult说明有业务错误
         if (object instanceof ResponseResult) {
+
             ResponseResult result = (ResponseResult) object;
             putHeader(result, outputMessage.getHeaders());
+            result.getResponse().setStatus(600);
 
             log.debug("添加响应头 {}", result);
             object = "";

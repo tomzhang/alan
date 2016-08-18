@@ -18,24 +18,6 @@ import java.util.Map;
 public class HttpUtils {
     private HttpUtils() {}
 
-    /**
-     * 从响应头中取出结果
-     * @return
-     * @throws AlanInvalidResponseException 请求头中没有code或者不是数字
-     */
-    public static ResponseResult getResponseStatus(HttpServletResponse resp) throws AlanInvalidResponseException {
-        int code = getCode(resp);
-        String msg = getMessage(resp);
-
-        // 取出自定义头(if any)
-        Map<String, String> customHeaders = getCustomHeaders(resp);
-        if (null != customHeaders) {
-            return new ResponseResult(code, msg, customHeaders);
-        }
-
-        return new ResponseResult(code, msg);
-
-    }
 
     /**
      * 将处理结果放到响应返回头中
