@@ -30,9 +30,11 @@ public class AlanJsonHttpMessageConverter extends MappingJackson2HttpMessageConv
 
             log.debug("添加响应头 {}", result);
             object = "";
+
         } else {
             // controller正常返回
             putHeader(ResponseResult.getSuccessResult(), outputMessage.getHeaders());
+            log.debug("添加响应头 {}", ResponseResult.getSuccessResult());
         }
 
         super.writeInternal(object, type, outputMessage);
