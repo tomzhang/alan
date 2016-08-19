@@ -17,6 +17,9 @@ public class Const {
     public static final int ERROR_CODE_SUCCESS = 0;
     public static final String ERROR_CODE_SUCCESS_MSG = "success";
 
+
+    public static final int HTTP_STATUS_BUSINESS_ERROR = 600;
+
     /**
      * 请求参数名
      */

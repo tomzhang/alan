@@ -36,11 +36,9 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         if (ex instanceof AlanException) {
             AlanException exception = (AlanException) ex;
 
-            //resp.setStatus(600);
             return new ResponseResult(exception.getCode(), exception.getMessage(), resp);
         }
 
-        //resp.setStatus(600);
         return new ResponseResult(-1, ex.getMessage(), resp);
     }
 

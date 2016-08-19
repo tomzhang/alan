@@ -26,7 +26,7 @@ public class AlanJsonHttpMessageConverter extends MappingJackson2HttpMessageConv
 
             ResponseResult result = (ResponseResult) object;
             putHeader(result, outputMessage.getHeaders());
-            result.getResponse().setStatus(600);
+            result.getResponse().setStatus(Const.HTTP_STATUS_BUSINESS_ERROR);
 
             log.debug("添加响应头 {}", result);
             object = "";
