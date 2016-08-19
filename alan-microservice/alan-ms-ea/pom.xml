@@ -30,7 +30,7 @@
 
         <dependency>
             <groupId>cn.com.sina</groupId>
-            <artifactId>alan-autoconfig</artifactId>
+            <artifactId>alan-starter-autoconfig</artifactId>
             <version>${project.version}</version>
         </dependency>
 
