@@ -15,14 +15,10 @@
 	<url>http://spring-cloud.io</url>
 
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-feign</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>cn.com.sina</groupId>
-            <artifactId>alan-autoconfig</artifactId>
+            <artifactId>alan-starter-autoconfig</artifactId>
             <version>${project.version}</version>
         </dependency>
 

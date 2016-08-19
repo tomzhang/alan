@@ -1,6 +1,5 @@
 package cn.com.sina.alan.autoconfig;
 
-import cn.com.sina.alan.common.exception.AlanException;
 import feign.Response;
 import feign.codec.DecodeException;
 import feign.codec.Decoder;
