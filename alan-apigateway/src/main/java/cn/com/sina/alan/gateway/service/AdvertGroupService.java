@@ -17,7 +17,7 @@ public class AdvertGroupService {
     @Autowired
     private AdvertGroupRemoteService adGroupRemoteService;
 
-    @HystrixCommand(//fallbackMethod = "fallback",
+    @HystrixCommand(fallbackMethod = "fallback",
             ignoreExceptions = AlanException.class,
             commandProperties = {
         @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "2000")
@@ -26,9 +26,11 @@ public class AdvertGroupService {
         return adGroupRemoteService.findByGroupId(groupId);
     }
 
-    private AdvertGroupVO fallback(Integer id) {
+    private AdvertGroupVO fallback(Integer id, Throwable throwable) {
         AdvertGroupVO vo = new AdvertGroupVO();
-        vo.setGroupName("fallback");
+        vo.setGroupName(throwable.getMessage());
+
+        //throwable.printStackTrace();
 
         return vo;
     }
