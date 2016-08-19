@@ -16,11 +16,11 @@
 
     <dependencies>
 
-        <dependency>
+<!--        <dependency>
             <groupId>cn.com.sina</groupId>
             <artifactId>alan-starter-autoconfig</artifactId>
             <version>${project.version}</version>
-        </dependency>
+        </dependency>-->
 
     </dependencies>
 

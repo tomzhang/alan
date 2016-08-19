@@ -14,8 +14,8 @@
 	<description>The provider module of alan project</description>
 	<url>http://spring-cloud.io</url>
 
-	<modules>
+<!--	<modules>
 		<module>alan-ms-ea</module>
-	</modules>
+	</modules>-->
 
 </project>
