@@ -1,4 +1,4 @@
-package cn.com.sina.alan.autoconfig;
+package cn.com.sina.alan.autoconfig.feign;
 
 import feign.Response;
 import feign.codec.DecodeException;

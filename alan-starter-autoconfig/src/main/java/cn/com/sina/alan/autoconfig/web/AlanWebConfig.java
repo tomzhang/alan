@@ -1,9 +1,9 @@
-package cn.com.sina.alan.autoconfig;
+package cn.com.sina.alan.autoconfig.web;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -24,6 +24,7 @@ public class AlanWebConfig extends WebMvcConfigurerAdapter {
      */
     @Bean
     @ConditionalOnMissingClass("cn.com.sina.alan.gateway.ApiGatewayApplication")
+    @ConditionalOnProperty(prefix = "alan.auto", name = "alanHttpMessageConverter", havingValue = "true", matchIfMissing = true)
     public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
         log.info("AlanJsonHttpMessageConverter已启用");
         return new AlanJsonHttpMessageConverter();

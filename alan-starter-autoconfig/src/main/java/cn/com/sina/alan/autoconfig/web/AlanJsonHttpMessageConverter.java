@@ -1,4 +1,4 @@
-package cn.com.sina.alan.autoconfig;
+package cn.com.sina.alan.autoconfig.web;
 
 import cn.com.sina.alan.common.config.Const;
 import cn.com.sina.alan.common.http.ResponseResult;

@@ -17,7 +17,7 @@ public class AdvertGroupService {
     @Autowired
     private AdvertGroupRemoteService adGroupRemoteService;
 
-    @HystrixCommand(fallbackMethod = "fallback",
+    @HystrixCommand(//fallbackMethod = "fallback",
             ignoreExceptions = AlanException.class,
             commandProperties = {
         @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "2000")
