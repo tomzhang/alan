@@ -11,11 +11,20 @@
 	<artifactId>alan-microservice</artifactId>
 	<packaging>pom</packaging>
 	<name>${project.artifactId}</name>
+
 	<description>The provider module of alan project</description>
 	<url>http://spring-cloud.io</url>
 
 <!--	<modules>
 		<module>alan-ms-ea</module>
 	</modules>-->
+
+    <dependencies>
+        <dependency>
+            <groupId>cn.com.sina</groupId>
+            <artifactId>alan-starter-autoconfig</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 
 </project>
