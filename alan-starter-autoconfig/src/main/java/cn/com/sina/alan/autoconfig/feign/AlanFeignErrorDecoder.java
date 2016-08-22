@@ -6,6 +6,9 @@ import feign.Response;
 import feign.codec.ErrorDecoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.CollectionUtils;
+
+import java.util.Collection;
 
 /**
  * Created by whf on 8/17/16.
@@ -21,8 +24,28 @@ public class AlanFeignErrorDecoder implements ErrorDecoder {
             return new IllegalStateException("HTTP远程调用出错");
         }
 
-        return new AlanException(
-                Integer.parseInt(response.headers().get(Const.HeaderParam.CODE).iterator().next()),
-                response.headers().get(Const.HeaderParam.MESSAGE).iterator().next());
+        return new AlanException(getCode(response), getMessage(response));
+    }
+
+    private int getCode(Response response) {
+        Collection<String> codeParam = response.headers().get(Const.HeaderParam.CODE);
+        if (CollectionUtils.isEmpty(codeParam)) {
+            log.error("响应头没有code");
+            return -1;
+        }
+
+        int code = Integer.parseInt(codeParam.iterator().next());
+
+        return code;
+    }
+
+    private String getMessage(Response response) {
+        Collection<String> msgParam = response.headers().get(Const.HeaderParam.MESSAGE);
+        if (CollectionUtils.isEmpty(msgParam)) {
+            log.error("响应头没有message");
+            return "";
+        }
+
+        return msgParam.iterator().next();
     }
 }
