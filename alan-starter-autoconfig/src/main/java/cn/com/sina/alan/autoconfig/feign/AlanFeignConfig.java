@@ -1,6 +1,7 @@
 package cn.com.sina.alan.autoconfig.feign;
 
 import feign.codec.Decoder;
+import feign.codec.Encoder;
 import feign.codec.ErrorDecoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +28,13 @@ public class AlanFeignConfig {
     public Decoder feignDecoder() {
         log.info("Alan FeignDecoder已启用");
         return new AlanFeignDecoder(new SpringDecoder(messageConverters));
+    }
+
+    @Bean
+    @ConditionalOnProperty(prefix = "alan.auto", name = "feignEncoder", havingValue = "true", matchIfMissing = true)
+    public Encoder feignEncoder() {
+        log.info("Alan FeignEncoder已启用");
+        return new AlanFeignEncoder(messageConverters);
     }
 
     @Bean
