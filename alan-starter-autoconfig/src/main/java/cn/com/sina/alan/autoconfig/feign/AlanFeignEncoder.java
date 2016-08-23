@@ -29,15 +29,15 @@ public class AlanFeignEncoder extends SpringEncoder {
         ReflectionUtils.doWithFields(requestBody.getClass(), field -> {
             field.setAccessible(true);
 
-            String name = field.getName();
             Object value = field.get(requestBody);
             if (null != value) {
+                String name = field.getName();
                 log.debug("添加参数{}={}", name, value);
                 request.query(name, value.toString());
             }
         });
 
-        super.encode(requestBody, bodyType, request);
+        //super.encode(requestBody, bodyType, request);
     }
 
 }
