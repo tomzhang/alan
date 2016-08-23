@@ -11,6 +11,7 @@ public class Const {
      * 每页默认大小
      */
     public static final int DEFAULT_PAGE_SIZE = 8;
+    public static final String DEFAULT_PAGE_SIZE_STRING = "8";
 
     public static final int AVERAGE_PARM_LENGTH = 15;
 
