@@ -22,17 +22,6 @@ public class AlanFeignDecoder extends ResponseEntityDecoder {
 
     @Override
     public Object decode(Response response, Type type) throws IOException, DecodeException {
-/*        Map<String, Collection<String>> headers = response.headers();
-        String code = getHeaderValue(headers.get(Const.HeaderParam.CODE));
-        String msg = getHeaderValue(headers.get(Const.HeaderParam.MESSAGE));
-
-        log.debug("解码: code = {}, msg = {}", code, msg);
-
-
-*/
-/*        if (true) {
-            throw new AlanException(-1, "test");
-        }*/
 
         return super.decode(response, type);
     }

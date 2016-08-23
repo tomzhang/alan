@@ -1,17 +1,14 @@
 package cn.com.sina.alan.autoconfig.feign;
 
-import cn.com.sina.alan.common.model.PageableModel;
 import feign.RequestTemplate;
 import feign.codec.EncodeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.boot.autoconfigure.web.HttpMessageConverters;
 import org.springframework.cloud.netflix.feign.support.SpringEncoder;
 import org.springframework.util.ReflectionUtils;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 
 /**
