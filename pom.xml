@@ -19,11 +19,11 @@
     </modules>
 
     <properties>
-        <alan-version>1.0-SNAPSHOT</alan-version>
+        <alan-version>1.0.0</alan-version>
     </properties>
 
     <!-- 设定仓库 -->
-    <repositories>
+<!--    <repositories>
         <repository>
             <id>sina.releases</id>
             <name>sina server</name>
@@ -52,15 +52,16 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
-    </repositories>
+    </repositories>-->
 
-    <plugins>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-        </plugin>
-
-    </plugins>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 
 	<!-- 开发人员 -->

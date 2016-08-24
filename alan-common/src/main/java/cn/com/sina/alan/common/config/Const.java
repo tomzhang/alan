@@ -39,6 +39,7 @@ public class Const {
 
         public static final String CODE = "X-Alan-Code";
         public static final String MESSAGE = "X-Alan-Message";
+        public static final String IP = "X-Alan-IP";
     }
 
 }

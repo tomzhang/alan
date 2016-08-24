@@ -13,7 +13,7 @@
 	<name>${project.artifactId}</name>
 
     <properties>
-        <alan-version>1.0-SNAPSHOT</alan-version>
+        <alan-version>1.0.0</alan-version>
     </properties>
 
 	<description>The provider module of alan project</description>

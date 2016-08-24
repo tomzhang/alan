@@ -13,7 +13,7 @@
     <artifactId>alan-starter-autoconfig</artifactId>
 
     <properties>
-        <alan-version>1.0-SNAPSHOT</alan-version>
+        <alan-version>1.0.0</alan-version>
     </properties>
 
     <dependencies>

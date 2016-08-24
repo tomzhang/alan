@@ -2,6 +2,7 @@ package cn.com.sina.alan.autoconfig.web;
 
 import cn.com.sina.alan.common.config.Const;
 import cn.com.sina.alan.common.http.ResponseResult;
+import cn.com.sina.alan.common.utils.NetUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -37,7 +38,13 @@ public class AlanJsonHttpMessageConverter extends MappingJackson2HttpMessageConv
             log.debug("添加响应头 {}", ResponseResult.getSuccessResult());
         }
 
+        outputMessage.getHeaders().set(Const.HeaderParam.IP, getLocalIP());
+
         super.writeInternal(object, type, outputMessage);
+    }
+
+    private String getLocalIP() {
+        return NetUtils.getLocalAddress().getHostAddress();
     }
 
     private void putHeader(ResponseResult result, HttpHeaders headers) {
