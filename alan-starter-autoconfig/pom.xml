@@ -12,6 +12,10 @@
     <groupId>cn.com.sina</groupId>
     <artifactId>alan-starter-autoconfig</artifactId>
 
+    <properties>
+        <alan-version>1.0-SNAPSHOT</alan-version>
+    </properties>
+
     <dependencies>
         <!-- Feign -->
         <dependency>
@@ -82,7 +86,7 @@
         <dependency>
             <groupId>cn.com.sina</groupId>
             <artifactId>alan-common</artifactId>
-            <version>${project.version}</version>
+            <version>${alan-version}</version>
         </dependency>
 
         <dependency>

@@ -12,6 +12,10 @@
 	<packaging>pom</packaging>
 	<name>${project.artifactId}</name>
 
+    <properties>
+        <alan-version>1.0-SNAPSHOT</alan-version>
+    </properties>
+
 	<description>The provider module of alan project</description>
 	<url>http://spring-cloud.io</url>
 
@@ -55,7 +59,7 @@
         <dependency>
             <groupId>cn.com.sina</groupId>
             <artifactId>alan-starter-autoconfig</artifactId>
-            <version>${project.version}</version>
+            <version>${alan-version}</version>
         </dependency>
     </dependencies>
 
