@@ -51,6 +51,20 @@ public class ConcurrentUtilsTest {
         System.out.println(System.currentTimeMillis() - start);
     }
 
+    @Test
+    public void testAggregate() throws Exception {
+        long start = System.currentTimeMillis();
+        int result = ConcurrentUtils.concurrentExecuteSame(
+                () -> delay2(1),
+                () -> delay2(1),
+                (r1, r2) -> r1 + r2
+        );
+
+        System.out.println(result);
+        System.out.println(System.currentTimeMillis() - start);
+
+    }
+
     private boolean delay(int time) {
         try {
             TimeUnit.SECONDS.sleep(time);
@@ -68,6 +82,6 @@ public class ConcurrentUtilsTest {
             e.printStackTrace();
         }
 
-        return 0;
+        return time;
     }
 }

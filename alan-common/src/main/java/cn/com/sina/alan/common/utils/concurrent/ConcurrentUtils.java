@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.*;
+import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
 /**
@@ -37,6 +38,21 @@ public class ConcurrentUtils {
         return concurrentExecuteSame(task1, task2, TIMEOUT, UNIT);
     }
 
+    /**
+     * 并发执行两个任务,并调用用户自定义逻辑聚合结果
+     *
+     * @param task1
+     * @param task2
+     * @param func
+     * @param <T1>
+     * @param <T2>
+     * @return
+     * @throws AlanConcurrentException
+     */
+    public static <T1, T2> T2 concurrentExecuteSame(AlanTask<T1> task1, AlanTask<T1> task2, BiFunction<T1, T1, T2> func) throws AlanConcurrentException {
+        return concurrentExecuteSame(task1, task2, func, TIMEOUT, UNIT);
+    }
+
 
     /**
      * 并发执行两个返回结果相同的任务
@@ -59,6 +75,28 @@ public class ConcurrentUtils {
     }
 
     /**
+     * 并发执行两个任务,并调用用户自定义逻辑聚合结果
+     * @param task1 并发任务1
+     * @param task2 并发任务2
+     * @param func 聚合逻辑
+     * @param timeout
+     * @param unit
+     * @param <T1>
+     * @param <T2>
+     * @return
+     * @throws AlanConcurrentException
+     */
+    public static <T1, T2> T2 concurrentExecuteSame(AlanTask<T1> task1, AlanTask<T1> task2, BiFunction<T1, T1, T2> func, int timeout, TimeUnit unit) throws AlanConcurrentException {
+        Future<T2> f = CompletableFuture.supplyAsync(
+                () -> task1.execute()
+        ).thenCombine( CompletableFuture.supplyAsync(
+                () -> task2.execute()
+        ), func);
+
+        return processFuture(f, timeout, unit);
+    }
+
+    /**
      * 并发执行两个返回类型不同的任务
      * @param task1
      * @param task2
@@ -69,6 +107,22 @@ public class ConcurrentUtils {
      */
     public static <T1, T2> List<Object> concurrentExecuteDiff(AlanTask<T1> task1, AlanTask<T2> task2) throws AlanConcurrentException {
         return concurrentExecuteDiff(task1, task2, TIMEOUT, UNIT);
+    }
+
+    /**
+     * 并发执行两个返回类型不同的任务, 并调用用户逻辑聚合结果
+     *
+     * @param task1
+     * @param task2
+     * @param func
+     * @param <T1>
+     * @param <T2>
+     * @param <T3>
+     * @return
+     * @throws AlanConcurrentException
+     */
+    public static <T1, T2, T3> T3 concurrentExecuteDiff(AlanTask<T1> task1, AlanTask<T2> task2, BiFunction<T1, T2, T3> func) throws AlanConcurrentException {
+        return concurrentExecuteDiff(task1, task2, func, TIMEOUT, UNIT);
     }
 
     /**
@@ -93,6 +147,30 @@ public class ConcurrentUtils {
             result.add(r2);
             return result;
         } );
+
+        return processFuture(f, timeout, unit);
+    }
+
+    /**
+     * 并发执行两个返回类型不同的任务, 并调用用户逻辑聚合结果
+     *
+     * @param task1
+     * @param task2
+     * @param func 聚合逻辑
+     * @param timeout
+     * @param unit
+     * @param <T1> 并发任务1的返回结果
+     * @param <T2> 并发任务2的返回结果
+     * @param <T3> 聚合结果
+     * @return
+     * @throws AlanConcurrentException
+     */
+    public static <T1, T2, T3> T3 concurrentExecuteDiff(AlanTask<T1> task1, AlanTask<T2> task2, BiFunction<T1, T2, T3> func, int timeout, TimeUnit unit) throws AlanConcurrentException {
+        Future<T3> f = CompletableFuture.supplyAsync(
+                () -> task1.execute()
+        ).thenCombine( CompletableFuture.supplyAsync(
+                () -> task2.execute()
+        ), func);
 
         return processFuture(f, timeout, unit);
     }
