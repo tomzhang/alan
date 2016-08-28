@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.concurrent.*;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * 并发执行任务工具类
@@ -18,7 +19,7 @@ public class ConcurrentUtils {
     /**
      * 默认超时值
      */
-    public static final int TIMEOUT = 2000;
+    public static final int TIMEOUT = 3000;
     /**
      * 默认超时值时间单位
      */
@@ -94,6 +95,38 @@ public class ConcurrentUtils {
         ), func);
 
         return processFuture(f, timeout, unit);
+    }
+
+    /**
+     * 并发执行多个任务,取最快返回的结果
+     *
+     * @param tasks
+     * @param <T>
+     * @return
+     * @throws AlanConcurrentException
+     */
+    public static <T> T concurrentExecuteRace(AlanTask<T>... tasks) throws AlanConcurrentException {
+        return concurrentExecuteRace(TIMEOUT, UNIT, tasks);
+    }
+
+    /**
+     * 并发执行多个任务,取最快返回的结果
+     * @param timeout
+     * @param unit
+     * @param tasks
+     * @param <T>
+     * @return
+     * @throws AlanConcurrentException
+     */
+    public static <T> T concurrentExecuteRace(int timeout, TimeUnit unit, AlanTask<T>... tasks) throws AlanConcurrentException {
+        checkTasks(tasks);
+
+        CompletableFuture<T>[] futures = Stream.of(tasks)
+                .map( task -> CompletableFuture.supplyAsync( () -> task.execute() ) )
+                .toArray( CompletableFuture[]::new );
+
+        CompletableFuture f = CompletableFuture.anyOf(futures);
+        return (T) processFuture(f, timeout, unit);
     }
 
     /**
@@ -195,15 +228,9 @@ public class ConcurrentUtils {
      * @throws AlanConcurrentException
      */
     public static List<Object> concurrentExecuteDiffs(int timeout, TimeUnit unit, AlanTask<Object>... tasks) throws AlanConcurrentException {
-        if (null == tasks) {
-            throw new IllegalArgumentException("tasks cannot be null");
-        }
+        checkTasks(tasks);
 
         final int LEN = tasks.length;
-        if (LEN < 2) {
-            throw new IllegalArgumentException("at least 2 tasks");
-        }
-
         // 投递任务
         List<CompletableFuture<Object>> futures = Arrays.asList(tasks).stream()
                 .map( task -> CompletableFuture.supplyAsync( () -> task.execute() ) )
@@ -248,6 +275,18 @@ public class ConcurrentUtils {
         } catch (TimeoutException e) {
             e.printStackTrace();
             throw new AlanConcurrentException(e);
+        }
+
+    }
+
+    private static void checkTasks(AlanTask... tasks) {
+        if (null == tasks) {
+            throw new IllegalArgumentException("tasks cannot be null");
+        }
+
+        final int LEN = tasks.length;
+        if (LEN < 2) {
+            throw new IllegalArgumentException("at least 2 tasks");
         }
 
     }

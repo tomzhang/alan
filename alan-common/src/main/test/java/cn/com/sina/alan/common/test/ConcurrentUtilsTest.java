@@ -65,6 +65,19 @@ public class ConcurrentUtilsTest {
 
     }
 
+    @Test
+    public void testRace() throws Exception {
+        long start = System.currentTimeMillis();
+        int result = ConcurrentUtils.concurrentExecuteRace(
+                () -> delay2(1),
+                () -> delay2(2)
+        );
+
+        System.out.println(result);
+        System.out.println(System.currentTimeMillis() - start);
+
+    }
+
     private boolean delay(int time) {
         try {
             TimeUnit.SECONDS.sleep(time);
