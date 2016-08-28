@@ -1,11 +1,13 @@
 package cn.com.sina.alan.common.utils.concurrent;
 
 import cn.com.sina.alan.common.exception.AlanConcurrentException;
+import cn.com.sina.alan.common.exception.AlanException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.*;
+import java.util.stream.Collectors;
 
 /**
  * 并发执行任务工具类
@@ -34,6 +36,7 @@ public class ConcurrentUtils {
     public static <T> List<T> concurrentExecuteSame(AlanTask<T> task1, AlanTask<T> task2) throws AlanConcurrentException {
         return concurrentExecuteSame(task1, task2, TIMEOUT, UNIT);
     }
+
 
     /**
      * 并发执行两个返回结果相同的任务
@@ -95,6 +98,49 @@ public class ConcurrentUtils {
     }
 
     /**
+     * 支持无限多个任务并发执行
+     * @param tasks 至少传2个任务
+     * @return
+     * @throws AlanConcurrentException
+     */
+    public static List<Object> concurrentExecuteDiffs(AlanTask<Object>... tasks) throws AlanConcurrentException {
+        return concurrentExecuteDiffs(TIMEOUT, UNIT, tasks);
+    }
+
+    /**
+     * 支持无限多个任务并发执行
+     *
+     * @param timeout
+     * @param unit
+     * @param tasks 至少传2个任务
+     * @return
+     * @throws AlanConcurrentException
+     */
+    public static List<Object> concurrentExecuteDiffs(int timeout, TimeUnit unit, AlanTask<Object>... tasks) throws AlanConcurrentException {
+        if (null == tasks) {
+            throw new IllegalArgumentException("tasks cannot be null");
+        }
+
+        final int LEN = tasks.length;
+        if (LEN < 2) {
+            throw new IllegalArgumentException("at least 2 tasks");
+        }
+
+        // 投递任务
+        List<CompletableFuture<Object>> futures = Arrays.asList(tasks).stream()
+                .map( task -> CompletableFuture.supplyAsync( () -> task.execute() ) )
+                .collect(Collectors.toList());
+
+        // 获取结果
+        List<Object> result = new ArrayList<>(LEN);
+        for (CompletableFuture<Object> f : futures) {
+            result.add(processFuture(f, timeout, unit));
+        }
+
+        return result;
+    }
+
+    /**
      * 从Future中取出结果并处理异常
      * @param f
      * @param timeout
@@ -113,7 +159,13 @@ public class ConcurrentUtils {
 
         } catch (ExecutionException e) {
             e.printStackTrace();
-            throw new AlanConcurrentException(e);
+
+            // 如果是业务异常, 则重新抛出
+            if (e.getCause() instanceof AlanException) {
+                throw (AlanException)e.getCause();
+            } else {
+                throw new AlanConcurrentException(e);
+            }
 
         } catch (TimeoutException e) {
             e.printStackTrace();
