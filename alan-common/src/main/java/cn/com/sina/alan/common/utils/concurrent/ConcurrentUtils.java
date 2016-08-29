@@ -31,10 +31,10 @@ public class ConcurrentUtils {
     /**
      * 线程池默认大小
      */
-    public static int THREAD_POOL_SIZE = 10;
+    public static int THREAD_POOL_SIZE = 20;
 
     /**
-     * 线程池. 固定大小
+     * 线程池
      */
     public static ExecutorService pool;
 
@@ -43,12 +43,12 @@ public class ConcurrentUtils {
     private static void initPool() {
         if (null == ConcurrentUtils.pool) {
             ConcurrentUtils.pool = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
-            log.info("初始化默认线程池 {}, 大小:", ConcurrentUtils.pool);
+            log.info("初始化默认线程池 {}, 大小: {}", ConcurrentUtils.pool, THREAD_POOL_SIZE);
 
             return;
         }
 
-        log.debug("使用线程池: {}", pool);
+        log.debug("使用线程池: {}, 大小: {}", pool, THREAD_POOL_SIZE);
     }
 
     /**
