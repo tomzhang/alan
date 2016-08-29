@@ -22,7 +22,7 @@ public class ConcurrentUtils {
     /**
      * 默认超时值
      */
-    public static final int TIMEOUT = 3000;
+    public static final int TIMEOUT = 1000 * 10;
     /**
      * 默认超时值时间单位
      */
