@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 
 /**
  * 并发执行任务工具类
- * Created by whf on 8/27/16.
+ * Created by wanghongfei(hongfei7@staff.sina.com.cn) on 8/27/16.
  */
 public class ConcurrentUtils {
     /**
@@ -39,9 +39,9 @@ public class ConcurrentUtils {
 
     /**
      * 并发执行两个返回结果相同的任务
-     * @param task1
-     * @param task2
-     * @param <T>
+     * @param task1 并发任务1
+     * @param task2 并发任务2
+     * @param <T> 并发调用返回结果的类型
      * @throws AlanConcurrentException 并发调用发生错误
      * @return
      */
@@ -52,11 +52,11 @@ public class ConcurrentUtils {
     /**
      * 并发执行两个任务,并调用用户自定义逻辑聚合结果
      *
-     * @param task1
-     * @param task2
-     * @param func
-     * @param <T1>
-     * @param <T2>
+     * @param task1 并发任务1
+     * @param task2 并发任务2
+     * @param func 聚合逻辑
+     * @param <T1> 并发任务返回结果对象的类型
+     * @param <T2> 聚合后的返回类型
      * @return
      * @throws AlanConcurrentException
      */
@@ -67,8 +67,8 @@ public class ConcurrentUtils {
 
     /**
      * 并发执行两个返回结果相同的任务
-     * @param task1
-     * @param task2
+     * @param task1 并发任务1
+     * @param task2 并发任务2
      * @param timeout 超时时间值
      * @param unit 超时时间值的单位
      * @param <T>
@@ -92,10 +92,10 @@ public class ConcurrentUtils {
      * @param task1 并发任务1
      * @param task2 并发任务2
      * @param func 聚合逻辑
-     * @param timeout
-     * @param unit
-     * @param <T1>
-     * @param <T2>
+     * @param timeout 超时时间值
+     * @param unit 超时时间值的单位
+     * @param <T1> task1的返回类型
+     * @param <T2> task2的返回类型
      * @return
      * @throws AlanConcurrentException
      */
@@ -114,8 +114,8 @@ public class ConcurrentUtils {
     /**
      * 并发执行多个任务,取最快返回的结果
      *
-     * @param tasks
-     * @param <T>
+     * @param tasks 并发任务
+     * @param <T> 返回类型
      * @return
      * @throws AlanConcurrentException
      */
@@ -125,10 +125,10 @@ public class ConcurrentUtils {
 
     /**
      * 并发执行多个任务,取最快返回的结果
-     * @param timeout
-     * @param unit
-     * @param tasks
-     * @param <T>
+     * @param timeout 超时时间值
+     * @param unit 超时时间值的单位
+     * @param tasks 并发任务
+     * @param <T> 返回类型
      * @return
      * @throws AlanConcurrentException
      */
@@ -145,10 +145,10 @@ public class ConcurrentUtils {
 
     /**
      * 并发执行两个返回类型不同的任务
-     * @param task1
-     * @param task2
-     * @param <T1>
-     * @param <T2>
+     * @param task1 并发任务1
+     * @param task2 并发任务2
+     * @param <T1> task1的返回类型
+     * @param <T2> task2的返回类型
      * @return
      * @throws AlanConcurrentException
      */
@@ -159,12 +159,12 @@ public class ConcurrentUtils {
     /**
      * 并发执行两个返回类型不同的任务, 并调用用户逻辑聚合结果
      *
-     * @param task1
-     * @param task2
-     * @param func
-     * @param <T1>
-     * @param <T2>
-     * @param <T3>
+     * @param task1 并发任务1
+     * @param task2 并发任务2
+     * @param func 聚合逻辑
+     * @param <T1> task1的返回类型
+     * @param <T2> task2的返回类型
+     * @param <T3> 聚合结果后的返回类型
      * @return
      * @throws AlanConcurrentException
      */
@@ -174,12 +174,12 @@ public class ConcurrentUtils {
 
     /**
      * 并发执行两个返回类型不同的任务
-     * @param task1
-     * @param task2
-     * @param timeout
-     * @param unit
-     * @param <T1>
-     * @param <T2>
+     * @param task1 并发任务1
+     * @param task2 并发任务2
+     * @param timeout 超时时间值
+     * @param unit 超时时间值的单位
+     * @param <T1> task1的返回类型
+     * @param <T2> task2的返回类型
      * @throws AlanConcurrentException 并发调用发生错误
      * @return
      */
@@ -203,11 +203,11 @@ public class ConcurrentUtils {
     /**
      * 并发执行两个返回类型不同的任务, 并调用用户逻辑聚合结果
      *
-     * @param task1
-     * @param task2
+     * @param task1 并发任务1
+     * @param task2 并发任务2
      * @param func 聚合逻辑
-     * @param timeout
-     * @param unit
+     * @param timeout 超时时间值
+     * @param unit 超时时间值的单位
      * @param <T1> 并发任务1的返回结果
      * @param <T2> 并发任务2的返回结果
      * @param <T3> 聚合结果
@@ -239,8 +239,8 @@ public class ConcurrentUtils {
     /**
      * 支持无限多个任务并发执行
      *
-     * @param timeout
-     * @param unit
+     * @param timeout 超时时间值
+     * @param unit 超时时间值的单位
      * @param tasks 至少传2个任务
      * @return
      * @throws AlanConcurrentException
