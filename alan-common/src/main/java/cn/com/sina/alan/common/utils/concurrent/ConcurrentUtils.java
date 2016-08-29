@@ -282,6 +282,7 @@ public class ConcurrentUtils {
 
         } catch (InterruptedException e) {
             e.printStackTrace();
+            log.error(e.getMessage());
             throw new AlanConcurrentException(e);
 
         } catch (ExecutionException e) {
@@ -291,11 +292,13 @@ public class ConcurrentUtils {
             if (e.getCause() instanceof AlanException) {
                 throw (AlanException)e.getCause();
             } else {
+                log.error(e.getMessage());
                 throw new AlanConcurrentException(e);
             }
 
         } catch (TimeoutException e) {
             e.printStackTrace();
+            log.error(e.getMessage());
             throw new AlanConcurrentException(e);
         }
 
