@@ -33,9 +33,15 @@ public class ConcurrentUtils {
     /**
      * 线程池. 固定大小
      */
-    public static Executor pool = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
+    public static Executor pool;
 
     private ConcurrentUtils() {}
+
+    private static void initPool() {
+        if (null == ConcurrentUtils.pool) {
+            ConcurrentUtils.pool = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
+        }
+    }
 
     /**
      * 并发执行两个返回结果相同的任务
@@ -76,6 +82,8 @@ public class ConcurrentUtils {
      * @return
      */
     public static <T> List<T> concurrentExecuteSame(AlanTask<T> task1, AlanTask<T> task2, int timeout, TimeUnit unit) throws AlanConcurrentException {
+        initPool();
+
         Future<List<T>> f = CompletableFuture.supplyAsync(
                 () -> task1.execute(),
                 pool
@@ -100,6 +108,8 @@ public class ConcurrentUtils {
      * @throws AlanConcurrentException
      */
     public static <T1, T2> T2 concurrentExecuteSame(AlanTask<T1> task1, AlanTask<T1> task2, BiFunction<T1, T1, T2> func, int timeout, TimeUnit unit) throws AlanConcurrentException {
+        initPool();
+
         Future<T2> f = CompletableFuture.supplyAsync(
                 () -> task1.execute(),
                 pool
@@ -133,6 +143,7 @@ public class ConcurrentUtils {
      * @throws AlanConcurrentException
      */
     public static <T> T concurrentExecuteRace(int timeout, TimeUnit unit, AlanTask<T>... tasks) throws AlanConcurrentException {
+        initPool();
         checkTasks(tasks);
 
         CompletableFuture<T>[] futures = Stream.of(tasks)
@@ -184,6 +195,8 @@ public class ConcurrentUtils {
      * @return
      */
     public static <T1, T2> List<Object> concurrentExecuteDiff(AlanTask<T1> task1, AlanTask<T2> task2, int timeout, TimeUnit unit) throws AlanConcurrentException {
+        initPool();
+
         Future<List<Object>> f = CompletableFuture.supplyAsync(
                 () -> task1.execute(),
                 pool
@@ -215,6 +228,7 @@ public class ConcurrentUtils {
      * @throws AlanConcurrentException
      */
     public static <T1, T2, T3> T3 concurrentExecuteDiff(AlanTask<T1> task1, AlanTask<T2> task2, BiFunction<T1, T2, T3> func, int timeout, TimeUnit unit) throws AlanConcurrentException {
+        initPool();
         Future<T3> f = CompletableFuture.supplyAsync(
                 () -> task1.execute(),
                 pool
@@ -246,6 +260,7 @@ public class ConcurrentUtils {
      * @throws AlanConcurrentException
      */
     public static List<Object> concurrentExecuteDiffs(int timeout, TimeUnit unit, AlanTask<Object>... tasks) throws AlanConcurrentException {
+        initPool();
         checkTasks(tasks);
 
         final int LEN = tasks.length;
