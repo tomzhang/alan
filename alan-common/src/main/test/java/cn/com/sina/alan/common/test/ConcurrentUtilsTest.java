@@ -2,7 +2,6 @@ package cn.com.sina.alan.common.test;
 
 import cn.com.sina.alan.common.utils.concurrent.ConcurrentUtils;
 import org.junit.Test;
-import sun.security.util.AuthResources_de;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -16,7 +15,7 @@ public class ConcurrentUtilsTest {
         long start = System.currentTimeMillis();
         List<Boolean> result = ConcurrentUtils.concurrentExecuteSame(
                 () -> delay(1),
-                () -> delay(100)
+                () -> delay(1)
         );
 
         System.out.println(result);

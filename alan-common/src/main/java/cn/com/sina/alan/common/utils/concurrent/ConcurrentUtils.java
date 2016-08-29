@@ -25,6 +25,16 @@ public class ConcurrentUtils {
      */
     public static final TimeUnit UNIT = TimeUnit.MILLISECONDS;
 
+    /**
+     * 线程池默认大小
+     */
+    public static int THREAD_POOL_SIZE = 10;
+
+    /**
+     * 线程池. 固定大小
+     */
+    public static Executor pool = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
+
     private ConcurrentUtils() {}
 
     /**
@@ -67,9 +77,11 @@ public class ConcurrentUtils {
      */
     public static <T> List<T> concurrentExecuteSame(AlanTask<T> task1, AlanTask<T> task2, int timeout, TimeUnit unit) throws AlanConcurrentException {
         Future<List<T>> f = CompletableFuture.supplyAsync(
-                () -> task1.execute()
+                () -> task1.execute(),
+                pool
         ).thenCombine( CompletableFuture.supplyAsync(
-                () -> task2.execute()
+                () -> task2.execute(),
+                pool
         ), (r1, r2) -> Arrays.asList(r1, r2));
 
         return processFuture(f, timeout, unit);
@@ -89,9 +101,11 @@ public class ConcurrentUtils {
      */
     public static <T1, T2> T2 concurrentExecuteSame(AlanTask<T1> task1, AlanTask<T1> task2, BiFunction<T1, T1, T2> func, int timeout, TimeUnit unit) throws AlanConcurrentException {
         Future<T2> f = CompletableFuture.supplyAsync(
-                () -> task1.execute()
+                () -> task1.execute(),
+                pool
         ).thenCombine( CompletableFuture.supplyAsync(
-                () -> task2.execute()
+                () -> task2.execute(),
+                pool
         ), func);
 
         return processFuture(f, timeout, unit);
@@ -122,7 +136,7 @@ public class ConcurrentUtils {
         checkTasks(tasks);
 
         CompletableFuture<T>[] futures = Stream.of(tasks)
-                .map( task -> CompletableFuture.supplyAsync( () -> task.execute() ) )
+                .map( task -> CompletableFuture.supplyAsync( () -> task.execute(), pool ) )
                 .toArray( CompletableFuture[]::new );
 
         CompletableFuture f = CompletableFuture.anyOf(futures);
@@ -171,9 +185,11 @@ public class ConcurrentUtils {
      */
     public static <T1, T2> List<Object> concurrentExecuteDiff(AlanTask<T1> task1, AlanTask<T2> task2, int timeout, TimeUnit unit) throws AlanConcurrentException {
         Future<List<Object>> f = CompletableFuture.supplyAsync(
-                () -> task1.execute()
+                () -> task1.execute(),
+                pool
         ).thenCombine( CompletableFuture.supplyAsync(
-                () -> task2.execute()
+                () -> task2.execute(),
+                pool
         ), (r1, r2) -> {
             List<Object> result = new ArrayList<>(2);
             result.add(r1);
@@ -200,9 +216,11 @@ public class ConcurrentUtils {
      */
     public static <T1, T2, T3> T3 concurrentExecuteDiff(AlanTask<T1> task1, AlanTask<T2> task2, BiFunction<T1, T2, T3> func, int timeout, TimeUnit unit) throws AlanConcurrentException {
         Future<T3> f = CompletableFuture.supplyAsync(
-                () -> task1.execute()
+                () -> task1.execute(),
+                pool
         ).thenCombine( CompletableFuture.supplyAsync(
-                () -> task2.execute()
+                () -> task2.execute(),
+                pool
         ), func);
 
         return processFuture(f, timeout, unit);
@@ -233,7 +251,7 @@ public class ConcurrentUtils {
         final int LEN = tasks.length;
         // 投递任务
         List<CompletableFuture<Object>> futures = Arrays.asList(tasks).stream()
-                .map( task -> CompletableFuture.supplyAsync( () -> task.execute() ) )
+                .map( task -> CompletableFuture.supplyAsync( () -> task.execute(), pool ) )
                 .collect(Collectors.toList());
 
         // 获取结果
