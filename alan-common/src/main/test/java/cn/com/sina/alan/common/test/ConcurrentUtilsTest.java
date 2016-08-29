@@ -4,6 +4,7 @@ import cn.com.sina.alan.common.utils.concurrent.ConcurrentUtils;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -12,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 public class ConcurrentUtilsTest {
     @Test
     public void testExeSameTask() throws Exception {
+        //ConcurrentUtils.pool = Executors.newCachedThreadPool();
         long start = System.currentTimeMillis();
         List<Boolean> result = ConcurrentUtils.concurrentExecuteSame(
                 () -> delay(1),

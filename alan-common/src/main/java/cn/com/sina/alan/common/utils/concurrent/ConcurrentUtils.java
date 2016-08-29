@@ -2,6 +2,8 @@ package cn.com.sina.alan.common.utils.concurrent;
 
 import cn.com.sina.alan.common.exception.AlanConcurrentException;
 import cn.com.sina.alan.common.exception.AlanException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,6 +18,7 @@ import java.util.stream.Stream;
  * Created by wanghongfei(hongfei7@staff.sina.com.cn) on 8/27/16.
  */
 public class ConcurrentUtils {
+    private static Logger log = LoggerFactory.getLogger(ConcurrentUtils.class);
     /**
      * 默认超时值
      */
@@ -33,14 +36,19 @@ public class ConcurrentUtils {
     /**
      * 线程池. 固定大小
      */
-    public static Executor pool;
+    public static ExecutorService pool;
 
     private ConcurrentUtils() {}
 
     private static void initPool() {
         if (null == ConcurrentUtils.pool) {
             ConcurrentUtils.pool = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
+            log.info("初始化默认线程池 {}, 大小:", ConcurrentUtils.pool);
+
+            return;
         }
+
+        log.debug("使用线程池: {}", pool);
     }
 
     /**
