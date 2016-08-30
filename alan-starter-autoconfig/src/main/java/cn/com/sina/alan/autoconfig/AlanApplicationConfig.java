@@ -13,7 +13,8 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @EnableEurekaClient
-@EnableFeignClients(basePackages = "cn.com.sina.alan", defaultConfiguration = AlanFeignConfig.class)
+//@EnableFeignClients(basePackages = "cn.com.sina.alan", defaultConfiguration = AlanFeignConfig.class)
+@EnableFeignClients(basePackages = "cn.com.sina.alan")
 @EnableHystrix
 
 // 只有当alan.auto.enable=true或没有时才应用该配置类

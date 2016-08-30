@@ -10,12 +10,13 @@
 
 	<artifactId>alan-common</artifactId>
 	<packaging>jar</packaging>
+    <version>1.0.1</version>
 
 	<name>${project.artifactId}</name>
 	<url>http://spring-cloud.io</url>
 
     <properties>
-        <alan-version>1.0.0</alan-version>
+        <alan-version>1.0.1</alan-version>
     </properties>
 
 
