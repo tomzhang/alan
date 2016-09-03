@@ -11,10 +11,10 @@
 
     <groupId>cn.com.sina</groupId>
     <artifactId>alan-starter-autoconfig</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2-SNAPSHOT</version>
 
     <properties>
-        <alan-version>1.0.1</alan-version>
+        <alan-version>1.0.2-SNAPSHOT</alan-version>
     </properties>
 
     <dependencies>

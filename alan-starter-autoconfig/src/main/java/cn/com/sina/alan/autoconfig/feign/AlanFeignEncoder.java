@@ -26,6 +26,8 @@ public class AlanFeignEncoder extends SpringEncoder {
     public void encode(Object requestBody, Type bodyType, RequestTemplate request) throws EncodeException {
         log.debug("编码{}对象,类型为{}", requestBody, bodyType);
 
+
+        StringBuilder sb = new StringBuilder();
         ReflectionUtils.doWithFields(requestBody.getClass(), field -> {
             field.setAccessible(true);
 
@@ -33,11 +35,20 @@ public class AlanFeignEncoder extends SpringEncoder {
             if (null != value) {
                 String name = field.getName();
                 log.debug("添加参数{}={}", name, value);
-                request.query(name, value.toString());
+                //request.query(name, value.toString());
+
+                sb.append(name);
+                sb.append("=");
+                sb.append(value.toString());
+                sb.append("&");
             }
         });
 
-        //super.encode(requestBody, bodyType, request);
+        String postBody = sb.toString();
+        log.debug("POST请求体:{}", postBody);
+
+        request.header("Content-Type", "application/x-www-form-urlencoded");
+        request.body(postBody);
     }
 
 }
