@@ -3,7 +3,6 @@ package cn.com.sina.alan.autoconfig.feign;
 import feign.RequestTemplate;
 import feign.codec.EncodeException;
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.lang3.CharUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.ObjectFactory;
