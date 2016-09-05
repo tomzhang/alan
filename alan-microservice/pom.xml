@@ -10,11 +10,11 @@
 
 	<artifactId>alan-microservice</artifactId>
 	<packaging>pom</packaging>
-    <version>1.0.2</version>
+    <version>1.0.3-SNAPSHOT</version>
 	<name>${project.artifactId}</name>
 
     <properties>
-        <alan-version>1.0.2</alan-version>
+        <alan-version>1.0.3-SNAPSHOT</alan-version>
     </properties>
 
 	<description>The provider module of alan project</description>

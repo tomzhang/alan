@@ -11,10 +11,11 @@
 
     <groupId>cn.com.sina</groupId>
     <artifactId>alan-starter-autoconfig</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3-SNAPSHOT</version>
 
     <properties>
-        <alan-version>1.0.2</alan-version>
+        <alan-version>1.0.3-SNAPSHOT</alan-version>
+        <feign-httpclient>8.18.0</feign-httpclient>
     </properties>
 
     <dependencies>
@@ -22,6 +23,17 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-feign</artifactId>
+        </dependency>
+
+        <!-- 使用Apache HttpClient替换Feign原生httpclient -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.netflix.feign</groupId>
+            <artifactId>feign-httpclient</artifactId>
+            <version>${feign-httpclient}</version>
         </dependency>
 
         <!-- Hystrix -->
