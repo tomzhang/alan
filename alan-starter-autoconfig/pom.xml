@@ -107,6 +107,14 @@
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
 
+        <!-- @ConfigurationProperties (metadata for IDEs) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 
 </project>

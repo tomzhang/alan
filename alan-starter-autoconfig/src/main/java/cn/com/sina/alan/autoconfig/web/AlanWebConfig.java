@@ -7,6 +7,7 @@ import org.apache.http.config.ConnectionConfig;
 import org.apache.http.impl.client.HttpClients;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
@@ -24,8 +25,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 public class AlanWebConfig extends WebMvcConfigurerAdapter {
     public static final Logger log = LoggerFactory.getLogger(AlanWebConfig.class);
 
-    public static int HTTP_SO_TIMEOUT = 5;
-    public static int HTTP_CONN_TIMEOUT = 5;
+    @Autowired
+    private AlanHttpClientProperties httpClientProperties;
 
 
     /**
@@ -43,7 +44,7 @@ public class AlanWebConfig extends WebMvcConfigurerAdapter {
     @Bean
     @ConditionalOnProperty(prefix = "alan.auto", name = "alanHttpClient", havingValue = "true", matchIfMissing = true)
     public HttpClient httpClient() {
-        log.info("AlanHttpClient已启用. so_timeout = {}, conn_timeout = {}", HTTP_SO_TIMEOUT, HTTP_CONN_TIMEOUT);
+        log.info("AlanHttpClient已启用. so_timeout = {}, conn_timeout = {}", httpClientProperties.getReadTimeout(), httpClientProperties.getConnectionTimeout());
 
         return HttpClients.custom()
                 .setDefaultRequestConfig(httpRequestConfig())
@@ -54,8 +55,8 @@ public class AlanWebConfig extends WebMvcConfigurerAdapter {
 
 
         return RequestConfig.custom()
-                .setSocketTimeout(HTTP_SO_TIMEOUT)
-                .setConnectTimeout(HTTP_CONN_TIMEOUT)
+                .setSocketTimeout(httpClientProperties.getReadTimeout())
+                .setConnectTimeout(httpClientProperties.getConnectionTimeout())
                 .build();
     }
 
