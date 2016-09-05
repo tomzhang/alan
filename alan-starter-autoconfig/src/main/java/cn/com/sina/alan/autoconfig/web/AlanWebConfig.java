@@ -41,7 +41,7 @@ public class AlanWebConfig extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    @ConditionalOnClass(Feign.class)
+    @ConditionalOnProperty(prefix = "alan.auto", name = "alanHttpClient", havingValue = "true", matchIfMissing = true)
     public HttpClient httpClient() {
         log.info("AlanHttpClient已启用. so_timeout = {}, conn_timeout = {}", HTTP_SO_TIMEOUT, HTTP_CONN_TIMEOUT);
 
