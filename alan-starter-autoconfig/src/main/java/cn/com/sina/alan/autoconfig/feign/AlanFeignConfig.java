@@ -1,5 +1,6 @@
 package cn.com.sina.alan.autoconfig.feign;
 
+import feign.Retryer;
 import feign.codec.Decoder;
 import feign.codec.Encoder;
 import feign.codec.ErrorDecoder;
@@ -42,5 +43,12 @@ public class AlanFeignConfig {
     public ErrorDecoder errorDecoder() {
         log.info("Alan FeignErrorDecoder已启用");
         return new AlanFeignErrorDecoder();
+    }
+
+    @Bean
+    @ConditionalOnProperty(prefix = "alan.auto", name = "feignRetryer", havingValue = "true", matchIfMissing = true)
+    public Retryer alanFeignRetryer() {
+        log.info("Alan FeignRetryer已启用");
+        return new AlanFeignRetryer();
     }
 }
