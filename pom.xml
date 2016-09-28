@@ -6,12 +6,12 @@
 	<parent>
 		<groupId>cn.com.sina</groupId>
 		<artifactId>alan</artifactId>
-		<version>1.0.1</version>
+		<version>1.0.2</version>
 	</parent>
 
 	<artifactId>alan-parent</artifactId>
 	<packaging>pom</packaging>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
 
 	<modules>
 		<module>alan-common</module>
@@ -20,7 +20,7 @@
     </modules>
 
     <properties>
-        <alan-version>1.0.3</alan-version>
+        <alan-version>1.0.4</alan-version>
     </properties>
 
     <!-- 设定仓库 -->
