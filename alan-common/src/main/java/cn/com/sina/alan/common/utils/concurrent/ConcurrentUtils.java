@@ -400,6 +400,10 @@ public class ConcurrentUtils {
 
     }
 
+    /**
+     * 得到默认线程池. 第一次调用该方法时会创建默认池
+     * @return
+     */
     public static ExecutorService getPool() {
         if (null == ConcurrentUtils.pool) {
             ConcurrentUtils.pool = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
