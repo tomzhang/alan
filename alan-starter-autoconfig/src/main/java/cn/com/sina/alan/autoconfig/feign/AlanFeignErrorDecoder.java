@@ -2,6 +2,7 @@ package cn.com.sina.alan.autoconfig.feign;
 
 import cn.com.sina.alan.common.config.Const;
 import cn.com.sina.alan.common.exception.AlanException;
+import cn.com.sina.alan.common.exception.AlanInvalidRequestException;
 import feign.Response;
 import feign.codec.ErrorDecoder;
 import org.slf4j.Logger;
@@ -19,10 +20,19 @@ public class AlanFeignErrorDecoder implements ErrorDecoder {
     @Override
     public Exception decode(String methodKey, Response response) {
         int status = response.status();
+
+        // 处理5xx错误
         if (status >= 500 && status < 600) {
             log.error("HTTP远程调用出错, 状态码{}", status);
             return new IllegalStateException("HTTP远程调用出错");
         }
+
+        // 处理4xx错误
+        if (status >= 400 && status < 500) {
+            log.error("HTTP远程调用出错, 状态码{}", status);
+            return new AlanInvalidRequestException("Invalid HTTP Request");
+        }
+
 
         return new AlanException(getCode(response), getMessage(response));
     }

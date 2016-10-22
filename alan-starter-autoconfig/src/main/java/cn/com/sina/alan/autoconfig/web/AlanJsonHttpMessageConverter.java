@@ -10,6 +10,7 @@ import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.Type;
 
@@ -26,8 +27,16 @@ public class AlanJsonHttpMessageConverter extends MappingJackson2HttpMessageConv
         if (object instanceof ResponseResult) {
 
             ResponseResult result = (ResponseResult) object;
+            // 设置响应头
             putHeader(result, outputMessage.getHeaders());
-            result.getResponse().setStatus(Const.HTTP_STATUS_BUSINESS_ERROR);
+
+            HttpServletResponse response = result.getResponse();
+
+            // 如果远程HTTP调用状态码不在400~500之间, 则重置状态码为HTTP_STATUS_BUSINESS_ERROR
+            if ( !(response.getStatus() >= 400 && response.getStatus() < 500) ) {
+                // 设置状态码
+                result.getResponse().setStatus(Const.HTTP_STATUS_BUSINESS_ERROR);
+            }
 
             log.debug("添加响应头 {}", result);
             object = "";
