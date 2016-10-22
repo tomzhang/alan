@@ -21,15 +21,12 @@ public class Const {
 
     public static final int HTTP_STATUS_BUSINESS_ERROR = 600;
 
-    /**
-     * 请求参数名
-     */
-    public static class RequestParam {
+/*    public static class RequestParam {
         public static final String SIGN = "sign";
-        /* 时间戳 */
+        *//* 时间戳 *//*
         public static final String TIMESTAMP = "ts";
         public static final String PUBLIC_KEY = "pk";
-    }
+    }*/
 
     /**
      * Http请求头
