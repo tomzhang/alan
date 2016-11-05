@@ -15,7 +15,7 @@ import java.util.Collection;
  * Created by whf on 8/17/16.
  */
 public class AlanFeignErrorDecoder implements ErrorDecoder {
-    public static final Logger log = LoggerFactory.getLogger(AlanFeignDecoder.class);
+    public static final Logger log = LoggerFactory.getLogger(AlanFeignErrorDecoder.class);
 
     @Override
     public Exception decode(String methodKey, Response response) {
