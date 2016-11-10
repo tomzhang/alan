@@ -7,11 +7,13 @@ import feign.Response;
 import feign.codec.ErrorDecoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.Base64Utils;
 import org.springframework.util.CollectionUtils;
 
 import java.util.Collection;
 
 /**
+ * Feign的错误处解码器。只有当状态码非2XX时才会执行
  * Created by whf on 8/17/16.
  */
 public class AlanFeignErrorDecoder implements ErrorDecoder {
@@ -56,6 +58,17 @@ public class AlanFeignErrorDecoder implements ErrorDecoder {
             return "";
         }
 
-        return msgParam.iterator().next();
+        String encodedMessage = msgParam.iterator().next();
+        // 使用Base64解码message
+        String decodedMessage = decodeMessage(encodedMessage);
+
+        log.debug("解码message: {}", decodedMessage);
+
+        return decodedMessage;
+    }
+
+    private String decodeMessage(String message) {
+        byte[] decodedMessageBuf = Base64Utils.decodeFromString(message);
+        return new String(decodedMessageBuf);
     }
 }

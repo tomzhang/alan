@@ -9,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.util.Base64Utils;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -57,8 +58,12 @@ public class AlanJsonHttpMessageConverter extends MappingJackson2HttpMessageConv
     }
 
     private void putHeader(ResponseResult result, HttpHeaders headers) {
+        String encodedMessage = Base64Utils.encodeToString(result.getMessage().getBytes());
+        log.debug("message base64编码: {}", encodedMessage);
+        result.setMessage(encodedMessage);
+
         headers.set(Const.HeaderParam.CODE, result.getCodeAsString());
-        headers.set(Const.HeaderParam.MESSAGE, result.getMessage());
+        headers.set(Const.HeaderParam.MESSAGE, encodedMessage);
 
         headers.setAll(result.getCustomHeaders());
 
