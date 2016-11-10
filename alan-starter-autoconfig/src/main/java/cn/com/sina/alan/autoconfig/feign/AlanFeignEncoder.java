@@ -2,6 +2,7 @@ package cn.com.sina.alan.autoconfig.feign;
 
 import feign.RequestTemplate;
 import feign.codec.EncodeException;
+import feign.form.spring.SpringMultipartEncodedDataProcessor;
 import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.charset.Charset;
+import java.util.Collections;
+import java.util.Map;
 
 /**
  * Created by whf on 8/22/16.
@@ -33,7 +36,11 @@ public class AlanFeignEncoder extends SpringEncoder {
         // 如果是MultipartFile类型的参数
         // 说明该参数是要上传的文件
         if (requestBody instanceof MultipartFile) {
-            processMultipartFile((MultipartFile) requestBody, request);
+            MultipartFile file = (MultipartFile)  requestBody;
+            //processMultipartFile((MultipartFile) requestBody, request);
+
+            Map<String, Object> data = Collections.singletonMap(file.getName(), requestBody);
+            new SpringMultipartEncodedDataProcessor().process(data, request);
 
         } else {
             // 是POJO对象
@@ -46,6 +53,7 @@ public class AlanFeignEncoder extends SpringEncoder {
 
     /**
      * 将byte数组取出, 通过Base64编码后放入请求体中
+     * @deprecated
      * @param file
      * @param request
      */
