@@ -49,11 +49,21 @@ public class AlanWebConfig extends WebMvcConfigurerAdapter {
     }
 
     @Bean
+    //@ConditionalOnMissingClass("cn.com.sina.alan.gateway.ApiGatewayApplication")
     @ConditionalOnMissingBean
     public AlanHttpHeaderEncoder alanHttpHeaderEncoder() {
-        log.info("{}已经启用", AlanBase64HttpHeaderEncoder.class.getName());
+        log.info("{}已经启用", "AlanBase64HttpHeaderEncoder");
 
         return new AlanBase64HttpHeaderEncoder();
+    }
+
+    @Bean
+    //@ConditionalOnMissingClass("cn.com.sina.alan.gateway.ApiGatewayApplication")
+    @ConditionalOnMissingBean
+    public AlanHttpHeaderDecoder alanHttpHeaderDecoder() {
+        log.info("{}已启用", "AlanBase64HttpHeaderDecoder");
+
+        return new AlanBase64HttpHeaderDecoder();
     }
 
 
