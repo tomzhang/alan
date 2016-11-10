@@ -5,16 +5,16 @@
 	<parent>
 		<artifactId>alan-parent</artifactId>
 		<groupId>cn.com.sina</groupId>
-        <version>1.0.51</version>
+        <version>1.0.6</version>
 	</parent>
 
 	<artifactId>alan-microservice</artifactId>
 	<packaging>pom</packaging>
-    <version>1.0.51</version>
+    <version>1.0.6</version>
 	<name>${project.artifactId}</name>
 
     <properties>
-        <alan-version>1.0.51</alan-version>
+        <alan-version>1.0.6</alan-version>
     </properties>
 
 	<description>The provider module of alan project</description>
