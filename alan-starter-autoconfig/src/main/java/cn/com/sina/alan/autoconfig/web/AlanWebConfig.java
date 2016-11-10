@@ -1,14 +1,11 @@
 package cn.com.sina.alan.autoconfig.web;
 
-import feign.Feign;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
-import org.apache.http.config.ConnectionConfig;
 import org.apache.http.impl.client.HttpClients;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -50,6 +47,15 @@ public class AlanWebConfig extends WebMvcConfigurerAdapter {
                 .setDefaultRequestConfig(httpRequestConfig())
                 .build();
     }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public AlanHttpHeaderEncoder alanHttpHeaderEncoder() {
+        log.info("{}已经启用", AlanBase64HttpHeaderEncoder.class.getName());
+
+        return new AlanBase64HttpHeaderEncoder();
+    }
+
 
     public RequestConfig httpRequestConfig() {
 
