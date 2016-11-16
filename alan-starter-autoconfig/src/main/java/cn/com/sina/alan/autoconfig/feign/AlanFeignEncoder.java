@@ -1,5 +1,7 @@
 package cn.com.sina.alan.autoconfig.feign;
 
+import cn.com.sina.alan.autoconfig.AlanDateProperties;
+import cn.com.sina.alan.autoconfig.annotation.AlanDateFormat;
 import feign.RequestTemplate;
 import feign.codec.EncodeException;
 import feign.form.spring.SpringMultipartEncodedDataProcessor;
@@ -7,6 +9,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.ObjectFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.HttpMessageConverters;
 import org.springframework.cloud.netflix.feign.support.SpringEncoder;
 import org.springframework.http.HttpMethod;
@@ -14,9 +17,12 @@ import org.springframework.util.ReflectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.nio.charset.Charset;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,6 +31,9 @@ import java.util.Map;
  */
 public class AlanFeignEncoder extends SpringEncoder {
     private static final Logger log = LoggerFactory.getLogger(AlanFeignEncoder.class);
+
+    @Autowired
+    private AlanDateProperties alanDateProperties;
 
 
     public AlanFeignEncoder(ObjectFactory<HttpMessageConverters> messageConverters) {
@@ -128,13 +137,59 @@ public class AlanFeignEncoder extends SpringEncoder {
             if (null != value) {
 
                 String name = field.getName();
-                parameterMap.put(name, value.toString());
+                String parmValue = null;
+
+                // 处理日期类型
+                if (value instanceof Date) {
+                    parmValue = processDate( (Date) value, field );
+
+                } else {
+                    // 非日期类型, 直接toString()
+                    parmValue = value.toString();
+                }
+
+                parameterMap.put(name, parmValue);
 
                 log.debug("从POJO中解析出参数: {}={}", name, value.toString());
             }
         });
 
         return parameterMap;
+    }
+
+    /**
+     * 将日期转换为字符串
+     * @param date
+     * @param field
+     * @return
+     */
+    private String processDate(Date date, Field field) {
+        // 判断是否带有@AlanDateFormat注解
+        AlanDateFormat alanDateFormat = field.getAnnotation(AlanDateFormat.class);
+
+        String dateString = null;
+        if (null != alanDateFormat) {
+            // 标有注解
+            // 注解优先
+            String pattern = alanDateFormat.pattern();
+            log.debug("注解优先, 使用{}格式编码Date", pattern);
+
+            dateString = date2String(date, pattern);
+            log.debug("日期{}编码结果为{}", date, dateString);
+
+        } else {
+            // 没有注解
+            // 使用properties中配置的参数
+            String pattern = alanDateProperties.getPattern();
+            log.debug("使用{}格式编码Date: {}", pattern, date);
+
+            dateString = date2String(date, pattern);
+            log.debug("日期{}编码结果为{}", date, dateString);
+
+        }
+
+
+        return dateString == null ? date.toString() : dateString;
     }
 
     /**
@@ -153,6 +208,11 @@ public class AlanFeignEncoder extends SpringEncoder {
         }
 
         return sb.toString();
+    }
+
+    private String date2String(Date date, String pattern) {
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+        return sdf.format(date);
     }
 
 }
