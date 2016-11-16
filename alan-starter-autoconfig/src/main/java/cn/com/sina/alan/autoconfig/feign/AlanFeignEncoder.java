@@ -73,6 +73,13 @@ public class AlanFeignEncoder extends SpringEncoder {
         }
     }
 
+    /**
+     * 将POJO转换成键值对放到HTTP请求中;
+     * 如果是GET请求则添加到URL中, 如果是POST请求则添加到请求体中
+     *
+     * @param requestBody
+     * @param request
+     */
     private void processPOJO(Object requestBody, RequestTemplate request) {
         // 将POJO的属性转换成键值对
         Map<String, String> parameterMap = parseParameterMap(requestBody);
