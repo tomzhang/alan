@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * Feign参数编码器; 将Feign接口中声明的参数编码至HTTP请求参数中
  * Created by whf on 8/22/16.
  */
 public class AlanFeignEncoder extends SpringEncoder {
@@ -172,16 +173,16 @@ public class AlanFeignEncoder extends SpringEncoder {
             // 标有注解
             // 注解优先
             String pattern = alanDateFormat.pattern();
-            log.debug("注解优先, 使用{}格式编码Date", pattern);
+            log.trace("@AlanDateFormat注解优先");
 
             dateString = date2String(date, pattern);
-            log.debug("日期{}编码结果为{}", date, dateString);
+            log.debug("日期{}使用{}格式的编码结果为{}", date, pattern, dateString);
 
         } else {
             // 没有注解
             // 使用properties中配置的参数
             String pattern = alanDateProperties.getPattern();
-            log.debug("使用{}格式编码Date: {}", pattern, date);
+            log.trace("使用properties指定的{}格式编码Date: {}", pattern, date);
 
             dateString = date2String(date, pattern);
             log.debug("日期{}编码结果为{}", date, dateString);
