@@ -135,7 +135,9 @@ public class AlanFeignEncoder extends SpringEncoder {
 
         for (Map.Entry<String, String> entry : parameterMap.entrySet()) {
             sb.append(entry.getKey());
+            sb.append("=");
             sb.append(entry.getValue());
+            sb.append("&");
         }
 
         return sb.toString();
