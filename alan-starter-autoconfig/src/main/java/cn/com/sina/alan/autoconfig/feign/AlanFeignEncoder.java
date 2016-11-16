@@ -84,8 +84,8 @@ public class AlanFeignEncoder extends SpringEncoder {
         // 将POJO的属性转换成键值对
         Map<String, String> parameterMap = parseParameterMap(requestBody);
 
-        // 判断是否为GET请求
-        if (isGetMethod(request)) {
+        // 判断是否为类GET请求
+        if (isBodylessMethod(request)) {
             // k-v放到URL中
             parameterMap.entrySet().stream().forEach( entry -> {
                 request.query(false, entry.getKey(), entry.getValue());
@@ -94,7 +94,7 @@ public class AlanFeignEncoder extends SpringEncoder {
             log.debug("将参数 {} 添加到URL中", parameterMap);
 
         } else {
-            // 非GET请求, 参数扔到请求体中
+            // 这是带有body的请求, 参数扔到请求体中
             String queryString = buildQueryString(parameterMap);
             request.header("Content-Type", "application/x-www-form-urlencoded");
             request.body(queryString);
@@ -104,8 +104,13 @@ public class AlanFeignEncoder extends SpringEncoder {
 
     }
 
-    private boolean isGetMethod(RequestTemplate request) {
-        return request.method().equals(HttpMethod.GET.name());
+    private boolean isBodylessMethod(RequestTemplate request) {
+        String method = request.method();
+
+        return method.equals(HttpMethod.GET.name())
+                || method.equals(HttpMethod.HEAD)
+                || method.equals(HttpMethod.TRACE)
+                || method.equals(HttpMethod.OPTIONS);
     }
 
     /**
