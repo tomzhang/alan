@@ -18,6 +18,13 @@ public class ObjectUtils {
 
     private ObjectUtils() {}
 
+    /**
+     * 将java bean转换成键值对;
+     * 支持无限层嵌套;
+     *
+     * @param obj
+     * @return
+     */
     public static Map<String, Object> convertToMap(Object obj) {
         Map<String, Object> map = new HashMap();
 
@@ -26,24 +33,35 @@ public class ObjectUtils {
         return map;
     }
 
+    /**
+     * 遍历对象的所有属性, 如果是String或者数字类型, 则直接转换成键值对;
+     * 如果为POJO, 则进行递归, 将POJO的属性转换成键值对;
+     * 如果POJO的属性中还有POJO, 继续递归
+     *
+     * @param prefix 上次递归时的变量名, 第一次调用时请传递空串""
+     * @param obj POJO本身
+     * @param parameterMap 保存属性键值对的Map对象
+     */
     private static void doParseParameterMap(final String prefix, Object obj, Map<String, Object> parameterMap) {
 
         // 遍历POJO的Fields
         ReflectionUtils.doWithFields(obj.getClass(), field -> {
             ReflectionUtils.makeAccessible(field);
 
+            // 得到属性名
             String fieldName = field.getName();
+            // 得到属性值
             Object fieldValue = ReflectionUtils.getField(field, obj);
 
+            // 忽略为null的属性
             if (null == fieldValue) {
                 return;
             }
 
-            if ( !isBasicObjectTypes(fieldValue)
-                    && !isDateType(fieldValue)
-                    && !isCollectionTypes(fieldValue)) {
-
+            // 判断是否为自定义的POJO对象
+            if (isPOJO(fieldValue)) {
                 doParseParameterMap(combinePrefix(prefix, fieldName), fieldValue, parameterMap);
+
             } else {
 
                 String paramValue = null;
@@ -53,7 +71,7 @@ public class ObjectUtils {
                     paramValue = fieldValue.toString();
 
                 } else if (isDateType(fieldValue)) {
-                    // 是日期
+                    // 是日期, 进行格式化
                     paramValue = processDate( (Date) fieldValue, field );
 
                 } else if (isCollectionTypes(fieldValue)) {
@@ -62,6 +80,7 @@ public class ObjectUtils {
 
                     return;
                 } else {
+                    // 一般情况下不会执行到这里
                     paramValue = fieldValue.toString();
                 }
 
@@ -83,6 +102,12 @@ public class ObjectUtils {
         }
     }
 
+    /**
+     * 遍历可迭代的集合, 转换成键值对扔到map中
+     * @param prefix
+     * @param obj
+     * @param parameterMap
+     */
     protected static void processIterable(String prefix, Object obj, Map<String, Object> parameterMap) {
         Iterator it = ((Iterable) obj).iterator();
 
@@ -94,16 +119,32 @@ public class ObjectUtils {
         }
     }
 
+    /**
+     * 遍历Map并转换成键值对
+     * @param prefix
+     * @param obj
+     * @param parameterMap
+     */
     protected static void processMap(String prefix, Object obj, Map<String, Object> parameterMap) {
         Map map = (Map) obj;
 
         Set<Map.Entry> entrySet = map.entrySet();
         for (Map.Entry entry : entrySet) {
-            String key = String.format("%s.%s", prefix, entry.getKey());
-            parameterMap.put(key, obj);
+            String key = String.format("%s['%s']", prefix, entry.getKey());
+            parameterMap.put(key, entry.getValue());
         }
     }
 
+    /**
+     * 判断该对象是否可以直接调用其toString()方法取字面值当HTTP请求参数
+     * @param obj
+     * @return
+     */
+    protected static boolean isPOJO(Object obj) {
+        return !isBasicObjectTypes(obj)
+                && !isDateType(obj)
+                && !isCollectionTypes(obj);
+    }
 
     /**
      * 是否为可遍历的集合类型
@@ -160,7 +201,7 @@ public class ObjectUtils {
             // 使用properties中配置的参数
             //String pattern = alanDateProperties.getPattern();
             String pattern = "yyyy";
-            // todo
+            // todo 从配置中读取pattern
             log.trace("使用properties指定的{}格式编码Date: {}", pattern, date);
 
             dateString = date2String(date, pattern);
