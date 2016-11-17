@@ -118,9 +118,9 @@ public class AlanFeignEncoder extends SpringEncoder {
         String method = request.method();
 
         return method.equals(HttpMethod.GET.name())
-                || method.equals(HttpMethod.HEAD)
-                || method.equals(HttpMethod.TRACE)
-                || method.equals(HttpMethod.OPTIONS);
+                || method.equals(HttpMethod.HEAD.name())
+                || method.equals(HttpMethod.TRACE.name())
+                || method.equals(HttpMethod.OPTIONS.name());
     }
 
     /**
