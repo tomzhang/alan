@@ -2,6 +2,7 @@ package cn.com.sina.alan.autoconfig.feign;
 
 import cn.com.sina.alan.autoconfig.AlanDateProperties;
 import cn.com.sina.alan.autoconfig.annotation.AlanDateFormat;
+import cn.com.sina.alan.autoconfig.utils.ObjectUtils;
 import feign.RequestTemplate;
 import feign.codec.EncodeException;
 import feign.form.spring.SpringMultipartEncodedDataProcessor;
@@ -21,10 +22,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Feign参数编码器; 将Feign接口中声明的参数编码至HTTP请求参数中
@@ -83,6 +81,14 @@ public class AlanFeignEncoder extends SpringEncoder {
         }
     }
 
+
+
+
+
+
+
+
+
     /**
      * 将POJO转换成键值对放到HTTP请求中;
      * 如果是GET请求则添加到URL中, 如果是POST请求则添加到请求体中
@@ -90,7 +96,7 @@ public class AlanFeignEncoder extends SpringEncoder {
      * @param requestBody
      * @param request
      */
-    private void processPOJO(Object requestBody, RequestTemplate request) {
+    protected void processPOJO(Object requestBody, RequestTemplate request) {
         // 将POJO的属性转换成键值对
         Map<String, String> parameterMap = parseParameterMap(requestBody);
 
@@ -105,11 +111,11 @@ public class AlanFeignEncoder extends SpringEncoder {
 
         } else {
             // 这是带有body的请求, 参数扔到请求体中
-            String queryString = buildQueryString(parameterMap);
+/*            String queryString = buildQueryString(parameterMap);
             request.header("Content-Type", "application/x-www-form-urlencoded");
-            request.body(queryString);
+            request.body(queryString);*/
 
-            log.debug("将参数 {} 添加到请求体中", queryString);
+            //log.debug("将参数 {} 添加到请求体中", queryString);
         }
 
     }
@@ -128,92 +134,11 @@ public class AlanFeignEncoder extends SpringEncoder {
      * @param body
      * @return
      */
-    private Map<String, String> parseParameterMap(Object body) {
-        Map<String, String> parameterMap = new HashMap<>();
+    protected Map<String, String> parseParameterMap(Object body) {
+        Map<String, Object> parameterMap = ObjectUtils.convertToMap(body);
 
-        ReflectionUtils.doWithFields(body.getClass(), field -> {
-            field.setAccessible(true);
-
-            Object value = field.get(body);
-            if (null != value) {
-
-                String name = field.getName();
-                String parmValue = null;
-
-                // 处理日期类型
-                if (value instanceof Date) {
-                    parmValue = processDate( (Date) value, field );
-
-                } else {
-                    // 非日期类型, 直接toString()
-                    parmValue = value.toString();
-                }
-
-                parameterMap.put(name, parmValue);
-
-                log.debug("从POJO中解析出参数: {}={}", name, value.toString());
-            }
-        });
-
-        return parameterMap;
-    }
-
-    /**
-     * 将日期转换为字符串
-     * @param date
-     * @param field
-     * @return
-     */
-    private String processDate(Date date, Field field) {
-        // 判断是否带有@AlanDateFormat注解
-        AlanDateFormat alanDateFormat = field.getAnnotation(AlanDateFormat.class);
-
-        String dateString = null;
-        if (null != alanDateFormat) {
-            // 标有注解
-            // 注解优先
-            String pattern = alanDateFormat.pattern();
-            log.trace("@AlanDateFormat注解优先");
-
-            dateString = date2String(date, pattern);
-            log.debug("日期{}使用{}格式的编码结果为{}", date, pattern, dateString);
-
-        } else {
-            // 没有注解
-            // 使用properties中配置的参数
-            String pattern = alanDateProperties.getPattern();
-            log.trace("使用properties指定的{}格式编码Date: {}", pattern, date);
-
-            dateString = date2String(date, pattern);
-            log.debug("日期{}编码结果为{}", date, dateString);
-
-        }
-
-
-        return dateString == null ? date.toString() : dateString;
-    }
-
-    /**
-     * 将参数对转换为query string, 如 a=b&c=d&e=f
-     * @param parameterMap
-     * @return
-     */
-    private String buildQueryString(Map<String, String> parameterMap) {
-        StringBuilder sb = new StringBuilder(parameterMap.size() * 8);
-
-        for (Map.Entry<String, String> entry : parameterMap.entrySet()) {
-            sb.append(entry.getKey());
-            sb.append("=");
-            sb.append(entry.getValue());
-            sb.append("&");
-        }
-
-        return sb.toString();
-    }
-
-    private String date2String(Date date, String pattern) {
-        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-        return sdf.format(date);
+        return null;
+        //return parameterMap;
     }
 
 }
