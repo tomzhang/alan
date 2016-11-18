@@ -114,11 +114,11 @@ public class AlanFeignEncoder extends SpringEncoder {
 
         } else {
             // 这是带有body的请求, 参数扔到请求体中
-/*            String queryString = buildQueryString(parameterMap);
+            String queryString = objectUtils.convertToHttpFormParameter(parameterMap);
             request.header("Content-Type", "application/x-www-form-urlencoded");
-            request.body(queryString);*/
+            request.body(queryString);
 
-            //log.debug("将参数 {} 添加到请求体中", queryString);
+            log.debug("将参数 {} 添加到请求体中", queryString);
         }
 
     }
@@ -138,10 +138,7 @@ public class AlanFeignEncoder extends SpringEncoder {
      * @return
      */
     protected Map<String, String> parseParameterMap(Object body) {
-        Map<String, String> parameterMap = objectUtils.convertToMap(body);
-
-        return null;
-        //return parameterMap;
+        return objectUtils.convertToMap(body);
     }
 
 }

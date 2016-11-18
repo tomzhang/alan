@@ -54,11 +54,25 @@ public class ObjectUtils {
         return map;
     }
 
+    /**
+     * 将对象转换成HTTP表单键值对参数
+     * @param obj
+     * @return
+     */
     public String convertToHttpFormParameter(Object obj) {
         Map<String, String> map = convertToMap(obj);
 
-        StringBuilder formString = new StringBuilder(map.size() * 8);
-        for (Map.Entry<String, String> entry : map.entrySet()) {
+        return convertToHttpFormParameter(map);
+    }
+
+    /**
+     * 将Map中的键值对转换成HTTP表单参数
+     * @param paramMap
+     * @return
+     */
+    public String convertToHttpFormParameter(Map<String, String> paramMap) {
+        StringBuilder formString = new StringBuilder(paramMap.size() * 8);
+        for (Map.Entry<String, String> entry : paramMap.entrySet()) {
             formString.append(entry.getKey());
             formString.append("=");
             formString.append(entry.getValue());
@@ -66,6 +80,7 @@ public class ObjectUtils {
         }
 
         return formString.toString();
+
     }
 
     /**
