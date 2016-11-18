@@ -11,6 +11,10 @@ import java.util.*;
 @Getter
 @Setter
 public class Person {
+    private int[] ages = {
+            1, 2, 3, 4
+    };
+
     private String[] killers = new String[] {"k1", "k2", "k3"};
 
     private Address addr = new Address();
