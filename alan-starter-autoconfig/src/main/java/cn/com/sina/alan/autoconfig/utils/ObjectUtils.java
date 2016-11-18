@@ -1,8 +1,11 @@
 package cn.com.sina.alan.autoconfig.utils;
 
+import cn.com.sina.alan.autoconfig.AlanDateProperties;
 import cn.com.sina.alan.autoconfig.annotation.AlanDateFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.util.StringUtils;
 
@@ -13,10 +16,23 @@ import java.util.*;
 /**
  * Created by wanghongfei(hongfei7@staff.sina.com.cn) on 17/11/2016.
  */
+@Component
 public class ObjectUtils {
     private static final Logger log = LoggerFactory.getLogger(ObjectUtils.class);
 
-    private ObjectUtils() {}
+    @Autowired
+    private AlanDateProperties dateProperties;
+
+    public ObjectUtils() {}
+
+    /**
+     * 仅单元测试用
+     * @param properties
+     */
+    public ObjectUtils(AlanDateProperties properties) {
+        this.dateProperties = properties;
+    }
+
 
     /**
      * 将java bean转换成键值对;
@@ -25,7 +41,7 @@ public class ObjectUtils {
      * @param obj
      * @return
      */
-    public static Map<String, Object> convertToMap(Object obj) {
+    public Map<String, Object> convertToMap(Object obj) {
         Map<String, Object> map = new HashMap();
 
         doParseParameterMap("", obj, map);
@@ -42,7 +58,7 @@ public class ObjectUtils {
      * @param obj POJO本身
      * @param parameterMap 保存属性键值对的Map对象
      */
-    private static void doParseParameterMap(final String prefix, Object obj, Map<String, Object> parameterMap) {
+    private void doParseParameterMap(final String prefix, Object obj, Map<String, Object> parameterMap) {
 
         // 遍历POJO的Fields
         ReflectionUtils.doWithFields(obj.getClass(), field -> {
@@ -91,7 +107,7 @@ public class ObjectUtils {
 
     }
 
-    private static void processCollection(String prefix, Object obj, Map<String, Object> parameterMap) {
+    private void processCollection(String prefix, Object obj, Map<String, Object> parameterMap) {
         if (obj instanceof Iterable) {
             // 可迭代
             processIterable(prefix, obj, parameterMap);
@@ -108,7 +124,7 @@ public class ObjectUtils {
      * @param obj
      * @param parameterMap
      */
-    protected static void processIterable(String prefix, Object obj, Map<String, Object> parameterMap) {
+    protected void processIterable(String prefix, Object obj, Map<String, Object> parameterMap) {
         Iterator it = ((Iterable) obj).iterator();
 
         int ix = 0;
@@ -125,7 +141,7 @@ public class ObjectUtils {
      * @param obj
      * @param parameterMap
      */
-    protected static void processMap(String prefix, Object obj, Map<String, Object> parameterMap) {
+    protected void processMap(String prefix, Object obj, Map<String, Object> parameterMap) {
         Map map = (Map) obj;
 
         Set<Map.Entry> entrySet = map.entrySet();
@@ -140,7 +156,7 @@ public class ObjectUtils {
      * @param obj
      * @return
      */
-    protected static boolean isPOJO(Object obj) {
+    protected boolean isPOJO(Object obj) {
         return !isBasicObjectTypes(obj)
                 && !isDateType(obj)
                 && !isCollectionTypes(obj);
@@ -151,7 +167,7 @@ public class ObjectUtils {
      * @param obj
      * @return
      */
-    protected static boolean isCollectionTypes(Object obj) {
+    protected boolean isCollectionTypes(Object obj) {
         return obj instanceof Iterable
                 || obj instanceof Map;
     }
@@ -161,7 +177,7 @@ public class ObjectUtils {
      * @param obj
      * @return
      */
-    private static boolean isBasicObjectTypes(Object obj) {
+    private boolean isBasicObjectTypes(Object obj) {
         return obj.getClass().isPrimitive()
                 || obj instanceof Number
                 || obj instanceof String;
@@ -172,7 +188,7 @@ public class ObjectUtils {
      * @param obj
      * @return
      */
-    private static boolean isDateType(Object obj) {
+    private boolean isDateType(Object obj) {
         return obj instanceof Date;
     }
 
@@ -182,7 +198,7 @@ public class ObjectUtils {
      * @param field
      * @return
      */
-    protected static String processDate(Date date, Field field) {
+    protected String processDate(Date date, Field field) {
         // 判断是否带有@AlanDateFormat注解
         AlanDateFormat alanDateFormat = field.getAnnotation(AlanDateFormat.class);
 
@@ -199,9 +215,7 @@ public class ObjectUtils {
         } else {
             // 没有注解
             // 使用properties中配置的参数
-            //String pattern = alanDateProperties.getPattern();
-            String pattern = "yyyy";
-            // todo 从配置中读取pattern
+            String pattern = dateProperties.getPattern();
             log.trace("使用properties指定的{}格式编码Date: {}", pattern, date);
 
             dateString = date2String(date, pattern);
@@ -213,12 +227,12 @@ public class ObjectUtils {
         return dateString == null ? date.toString() : dateString;
     }
 
-    private static String date2String(Date date, String pattern) {
+    private String date2String(Date date, String pattern) {
         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
         return sdf.format(date);
     }
 
-    private static String combinePrefix(String prefix, String newPrefix) {
+    private String combinePrefix(String prefix, String newPrefix) {
         if (StringUtils.isEmpty(prefix)) {
             return newPrefix;
         }

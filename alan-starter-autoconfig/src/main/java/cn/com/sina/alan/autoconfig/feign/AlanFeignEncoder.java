@@ -31,8 +31,11 @@ import java.util.*;
 public class AlanFeignEncoder extends SpringEncoder {
     private static final Logger log = LoggerFactory.getLogger(AlanFeignEncoder.class);
 
+/*    @Autowired
+    private AlanDateProperties alanDateProperties;*/
+
     @Autowired
-    private AlanDateProperties alanDateProperties;
+    private ObjectUtils objectUtils;
 
 
     public AlanFeignEncoder(ObjectFactory<HttpMessageConverters> messageConverters) {
@@ -135,7 +138,7 @@ public class AlanFeignEncoder extends SpringEncoder {
      * @return
      */
     protected Map<String, String> parseParameterMap(Object body) {
-        Map<String, Object> parameterMap = ObjectUtils.convertToMap(body);
+        Map<String, Object> parameterMap = objectUtils.convertToMap(body);
 
         return null;
         //return parameterMap;
