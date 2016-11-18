@@ -219,11 +219,26 @@ public class ObjectUtils {
                 && !isDateType(obj)
                 && !isCollectionTypes(obj)
                 && !obj.getClass().isArray()
-                && !isEnumType(obj);
+                && !isEnumType(obj)
+                && !isBooleanType(obj);
     }
 
+    /**
+     * 是否为枚举类型
+     * @param obj
+     * @return
+     */
     protected boolean isEnumType(Object obj) {
         return obj instanceof Enum;
+    }
+
+    /**
+     * 是否为bool类型
+     * @param obj
+     * @return
+     */
+    protected boolean isBooleanType(Object obj) {
+        return obj instanceof Boolean;
     }
 
     /**

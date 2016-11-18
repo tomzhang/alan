@@ -12,6 +12,7 @@ import java.util.*;
 @Getter
 @Setter
 public class Person {
+    private boolean ok = false;
     private int[] ages = {
             1, 2, 3, 4
     };
