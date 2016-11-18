@@ -138,7 +138,7 @@ public class AlanFeignEncoder extends SpringEncoder {
      * @return
      */
     protected Map<String, String> parseParameterMap(Object body) {
-        Map<String, Object> parameterMap = objectUtils.convertToMap(body);
+        Map<String, String> parameterMap = objectUtils.convertToMap(body);
 
         return null;
         //return parameterMap;

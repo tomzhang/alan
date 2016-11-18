@@ -42,12 +42,12 @@ public class ObjectUtils {
      * @param obj
      * @return
      */
-    public Map<String, Object> convertToMap(Object obj) {
+    public Map<String, String> convertToMap(Object obj) {
         if (null == obj) {
             throw new IllegalArgumentException("参数obj不能为null");
         }
 
-        Map<String, Object> map = new HashMap();
+        Map<String, String> map = new HashMap();
 
         doParseParameterMap("", obj, map);
 
@@ -55,10 +55,10 @@ public class ObjectUtils {
     }
 
     public String convertToHttpFormParameter(Object obj) {
-        Map<String, Object> map = convertToMap(obj);
+        Map<String, String> map = convertToMap(obj);
 
         StringBuilder formString = new StringBuilder(map.size() * 8);
-        for (Map.Entry<String, Object> entry : map.entrySet()) {
+        for (Map.Entry<String, String> entry : map.entrySet()) {
             formString.append(entry.getKey());
             formString.append("=");
             formString.append(entry.getValue());
@@ -77,7 +77,7 @@ public class ObjectUtils {
      * @param obj POJO本身
      * @param parameterMap 保存属性键值对的Map对象
      */
-    private void doParseParameterMap(final String prefix, Object obj, Map<String, Object> parameterMap) {
+    private void doParseParameterMap(final String prefix, Object obj, Map<String, String> parameterMap) {
 
         // 遍历POJO的Fields
         ReflectionUtils.doWithFields(obj.getClass(), field -> {
@@ -133,7 +133,7 @@ public class ObjectUtils {
 
     }
 
-    private void processCollection(String prefix, Object obj, Map<String, Object> parameterMap) {
+    private void processCollection(String prefix, Object obj, Map<String, String> parameterMap) {
         if (obj instanceof Iterable) {
             // 可迭代
             processIterable(prefix, obj, parameterMap);
@@ -150,13 +150,13 @@ public class ObjectUtils {
      * @param obj
      * @param parameterMap
      */
-    protected void processIterable(String prefix, Object obj, Map<String, Object> parameterMap) {
+    protected void processIterable(String prefix, Object obj, Map<String, String> parameterMap) {
         Iterator it = ((Iterable) obj).iterator();
 
         int ix = 0;
         while (it.hasNext()) {
             String key = String.format("%s[%d]", prefix, ix);
-            parameterMap.put(key, it.next());
+            parameterMap.put(key, it.next().toString());
             ++ix;
         }
     }
@@ -167,13 +167,13 @@ public class ObjectUtils {
      * @param obj
      * @param parameterMap
      */
-    protected void processMap(String prefix, Object obj, Map<String, Object> parameterMap) {
+    protected void processMap(String prefix, Object obj, Map<String, String> parameterMap) {
         Map map = (Map) obj;
 
         Set<Map.Entry> entrySet = map.entrySet();
         for (Map.Entry entry : entrySet) {
             String key = String.format("%s['%s']", prefix, entry.getKey());
-            parameterMap.put(key, entry.getValue());
+            parameterMap.put(key, entry.getValue().toString());
         }
     }
 
@@ -183,7 +183,7 @@ public class ObjectUtils {
      * @param obj
      * @param parameterMap
      */
-    protected void processArray(String prefix, Object obj, Map<String, Object> parameterMap) {
+    protected void processArray(String prefix, Object obj, Map<String, String> parameterMap) {
         int size = Array.getLength(obj);
 
         for (int ix = 0 ; ix < size ; ++ix) {
