@@ -100,6 +100,11 @@ public class ObjectUtils {
 
             // 得到属性名
             String fieldName = field.getName();
+            // 忽略序列化属性
+            if (fieldName.equals("serialVersionUID")) {
+                return;
+            }
+
             // 得到属性值
             Object fieldValue = ReflectionUtils.getField(field, obj);
 
