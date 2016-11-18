@@ -23,9 +23,12 @@ public class ObjectUtilsTest {
     @Test
     public void testToMap() {
         Person p = new Person();
-        Map<String, Object> map = new ObjectUtils().convertToMap(p);
 
+        Map<String, Object> map = new ObjectUtils(alanDateProperties).convertToMap(p);
         System.out.println(map);
+
+        String queryString = new ObjectUtils(alanDateProperties).convertToHttpFormParameter(p);
+        System.out.println(queryString);
     }
 
 }

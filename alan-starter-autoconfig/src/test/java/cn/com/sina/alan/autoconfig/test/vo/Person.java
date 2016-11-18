@@ -5,10 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.collections.map.HashedMap;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by wanghongfei(hongfei7@staff.sina.com.cn) on 17/11/2016.
@@ -18,6 +15,8 @@ import java.util.Map;
 public class Person {
     private Address addr = new Address();
     private String name = "whf";
+
+    private Date date = new Date();
 
     private List<String> list = Arrays.asList("a", "b", "c");
     private Map<String, String> map;

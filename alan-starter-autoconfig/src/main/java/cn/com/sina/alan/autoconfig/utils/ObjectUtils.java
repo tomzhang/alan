@@ -42,11 +42,29 @@ public class ObjectUtils {
      * @return
      */
     public Map<String, Object> convertToMap(Object obj) {
+        if (null == obj) {
+            throw new IllegalArgumentException("参数obj不能为null");
+        }
+
         Map<String, Object> map = new HashMap();
 
         doParseParameterMap("", obj, map);
 
         return map;
+    }
+
+    public String convertToHttpFormParameter(Object obj) {
+        Map<String, Object> map = convertToMap(obj);
+
+        StringBuilder formString = new StringBuilder(map.size() * 8);
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
+            formString.append(entry.getKey());
+            formString.append("=");
+            formString.append(entry.getValue());
+            formString.append("&");
+        }
+
+        return formString.toString();
     }
 
     /**
@@ -237,6 +255,7 @@ public class ObjectUtils {
             return newPrefix;
         }
 
-        return prefix + "." + newPrefix;
+        int len = prefix.length() + newPrefix.length() + 1;
+        return AlanStringUtils.concat(len, prefix, ".", newPrefix);
     }
 }
