@@ -1,9 +1,7 @@
 package cn.com.sina.alan.autoconfig.test.vo;
 
-import freemarker.ext.beans.HashAdapter;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.commons.collections.map.HashedMap;
 
 import java.util.*;
 
@@ -13,6 +11,8 @@ import java.util.*;
 @Getter
 @Setter
 public class Person {
+    private String[] killers = new String[] {"k1", "k2", "k3"};
+
     private Address addr = new Address();
     private String name = "whf";
 
@@ -20,6 +20,7 @@ public class Person {
 
     private List<String> list = Arrays.asList("a", "b", "c");
     private Map<String, String> map;
+
 
     public Person() {
         map = new HashMap<>();

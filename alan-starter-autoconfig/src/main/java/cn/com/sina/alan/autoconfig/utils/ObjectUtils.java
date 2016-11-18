@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.util.StringUtils;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -113,6 +114,13 @@ public class ObjectUtils {
                     processCollection(combinePrefix(prefix, fieldName), fieldValue, parameterMap);
 
                     return;
+
+                } else if (fieldValue.getClass().isArray()) {
+                    // 是数组
+                    processArray(combinePrefix(prefix, fieldName), fieldValue, parameterMap);
+
+                    return;
+
                 } else {
                     // 一般情况下不会执行到这里
                     paramValue = fieldValue.toString();
@@ -170,6 +178,23 @@ public class ObjectUtils {
     }
 
     /**
+     * 使用反射的方式遍历数组
+     * @param prefix
+     * @param obj
+     * @param parameterMap
+     */
+    protected void processArray(String prefix, Object obj, Map<String, Object> parameterMap) {
+        int size = Array.getLength(obj);
+
+        for (int ix = 0 ; ix < size ; ++ix) {
+            Object elem = Array.get(obj, ix);
+            String key = String.format("%s[%d]", prefix, ix);
+
+            parameterMap.put(key, elem.toString());
+        }
+    }
+
+    /**
      * 判断该对象是否可以直接调用其toString()方法取字面值当HTTP请求参数
      * @param obj
      * @return
@@ -177,7 +202,8 @@ public class ObjectUtils {
     protected boolean isPOJO(Object obj) {
         return !isBasicObjectTypes(obj)
                 && !isDateType(obj)
-                && !isCollectionTypes(obj);
+                && !isCollectionTypes(obj)
+                && !obj.getClass().isArray();
     }
 
     /**
