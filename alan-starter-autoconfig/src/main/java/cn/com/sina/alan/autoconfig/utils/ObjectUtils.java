@@ -137,7 +137,7 @@ public class ObjectUtils {
                     return;
 
                 } else {
-                    // 一般情况下不会执行到这里
+                    // 一般情况下不会执行到这里, 除非Enum类型
                     paramValue = fieldValue.toString();
                 }
 
@@ -218,7 +218,12 @@ public class ObjectUtils {
         return !isBasicObjectTypes(obj)
                 && !isDateType(obj)
                 && !isCollectionTypes(obj)
-                && !obj.getClass().isArray();
+                && !obj.getClass().isArray()
+                && !isEnumType(obj);
+    }
+
+    protected boolean isEnumType(Object obj) {
+        return obj instanceof Enum;
     }
 
     /**
@@ -266,19 +271,19 @@ public class ObjectUtils {
             // 标有注解
             // 注解优先
             String pattern = alanDateFormat.pattern();
-            log.trace("@AlanDateFormat注解优先");
+            log.debug("@AlanDateFormat注解优先");
 
             dateString = date2String(date, pattern);
-            log.debug("日期{}使用{}格式的编码结果为{}", date, pattern, dateString);
+            log.trace("日期{}使用{}格式的编码结果为{}", date, pattern, dateString);
 
         } else {
             // 没有注解
             // 使用properties中配置的参数
             String pattern = dateProperties.getPattern();
-            log.trace("使用properties指定的{}格式编码Date: {}", pattern, date);
+            log.debug("使用properties指定的{}格式编码Date: {}", pattern, date);
 
             dateString = date2String(date, pattern);
-            log.debug("日期{}编码结果为{}", date, dateString);
+            log.trace("日期{}编码结果为{}", date, dateString);
 
         }
 

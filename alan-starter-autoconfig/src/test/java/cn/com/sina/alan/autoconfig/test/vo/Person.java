@@ -1,5 +1,6 @@
 package cn.com.sina.alan.autoconfig.test.vo;
 
+import cn.com.sina.alan.common.config.ErrorCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,6 +25,7 @@ public class Person {
 
     private List<String> list = Arrays.asList("a", "b", "c");
     private Map<String, String> map;
+    ErrorCode code = ErrorCode.FAILED;
 
 
     public Person() {
