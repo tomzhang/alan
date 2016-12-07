@@ -10,13 +10,13 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "alan.config.httpClient")
 public class AlanHttpClientProperties {
     /**
-     * 等待响应的最长时间, 秒
+     * 等待响应的最长时间, 毫秒
      */
-    private Integer readTimeout = 5;
+    private Integer readTimeout = 2000;
     /**
-     * 连接超时时间, 秒
+     * 连接超时时间, 毫秒
      */
-    private Integer connectionTimeout = 5;
+    private Integer connectionTimeout = 2000;
 
     public Integer getReadTimeout() {
         return readTimeout;
