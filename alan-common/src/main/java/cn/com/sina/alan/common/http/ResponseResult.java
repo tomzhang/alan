@@ -48,6 +48,10 @@ public class ResponseResult {
         return ResponseResult.successResult;
     }
 
+    public static ResponseResult getSuccessResultNew() {
+        return new ResponseResult(ErrorCode.SUCCESS.code(), ErrorCode.SUCCESS.msg());
+    }
+
     /**
      * 添加自定义的键值对
      * @param key

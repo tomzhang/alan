@@ -32,6 +32,8 @@ public class AlanJsonHttpMessageConverter extends MappingJackson2HttpMessageConv
         if (object instanceof ResponseResult) {
 
             ResponseResult result = (ResponseResult) object;
+            log.debug("控制器返回结果: {}", result);
+
             // 设置响应头
             headerEncoder.encodeException(result, outputMessage.getHeaders());
 
@@ -41,7 +43,7 @@ public class AlanJsonHttpMessageConverter extends MappingJackson2HttpMessageConv
         } else {
             // controller正常返回
             headerEncoder.encodeNormal(object, outputMessage.getHeaders());
-            log.debug("添加响应头 {}", ResponseResult.getSuccessResult());
+            log.debug("控制器成功返回");
         }
 
         outputMessage.getHeaders().set(Const.HeaderParam.IP, getLocalIP());

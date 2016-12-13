@@ -33,7 +33,7 @@ public class AlanBase64HttpHeaderEncoder implements AlanHttpHeaderEncoder {
 
     @Override
     public void encodeNormal(Object resultObject, HttpHeaders headers) {
-        putHeader(ResponseResult.getSuccessResult(), headers);
+        putHeader(ResponseResult.getSuccessResultNew(), headers);
     }
 
     private void putHeader(ResponseResult result, HttpHeaders headers) {
