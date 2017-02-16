@@ -1,7 +1,5 @@
 package cn.com.sina.alan.autoconfig.feign;
 
-import cn.com.sina.alan.autoconfig.AlanDateProperties;
-import cn.com.sina.alan.autoconfig.annotation.AlanDateFormat;
 import cn.com.sina.alan.autoconfig.utils.ObjectUtils;
 import feign.RequestTemplate;
 import feign.codec.EncodeException;
@@ -13,15 +11,15 @@ import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.HttpMessageConverters;
 import org.springframework.cloud.netflix.feign.support.SpringEncoder;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.util.ReflectionUtils;
+import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.json.JsonObject;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.nio.charset.Charset;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -55,12 +53,27 @@ public class AlanFeignEncoder extends SpringEncoder {
             Map<String, Object> data = Collections.singletonMap(file.getName(), requestBody);
             new SpringMultipartEncodedDataProcessor().process(data, request);
 
+        } else if (requestBody instanceof JsonObject) {
+            processJsonObject( (JsonObject) requestBody, request );
+
         } else {
             // 是POJO对象
             processPOJO(requestBody, request);
 
         }
 
+
+    }
+
+    /**
+     * 将json串取出放入请求体中
+     * @param jsonObject
+     * @param template
+     */
+    private void processJsonObject(JsonObject jsonObject, RequestTemplate template) {
+        template.header(HttpHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON_VALUE);
+
+        template.body(jsonObject.toString());
 
     }
 
@@ -75,7 +88,7 @@ public class AlanFeignEncoder extends SpringEncoder {
             byte[] buf = file.getBytes();
             byte[] base64Buf = Base64.encodeBase64(buf);
 
-            request.header("Content-Type", "text/plain");
+            request.header(HttpHeaders.CONTENT_TYPE, "text/plain");
             request.body(base64Buf, Charset.forName("UTF-8"));
 
         } catch (IOException e) {
@@ -115,7 +128,7 @@ public class AlanFeignEncoder extends SpringEncoder {
         } else {
             // 这是带有body的请求, 参数扔到请求体中
             String queryString = objectUtils.convertToHttpFormParameter(parameterMap);
-            request.header("Content-Type", "application/x-www-form-urlencoded");
+            request.header(HttpHeaders.CONTENT_TYPE, "application/x-www-form-urlencoded");
             request.body(queryString);
 
             log.debug("将参数 {} 添加到请求体中", queryString);

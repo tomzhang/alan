@@ -90,6 +90,20 @@
             <artifactId>spring-cloud-starter-bus-kafka</artifactId>
         </dependency>
 
+        <!-- 添加Feign对javax包下的JsonObject对象的支持  -->
+        <dependency>
+            <groupId>javax.json</groupId>
+            <artifactId>javax.json-api</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.json</artifactId>
+            <version>1.0.4</version>
+        </dependency>
+
+
+
         <!-- 以下依赖调整是为了让bus支持kafka 0.10.X.X -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
