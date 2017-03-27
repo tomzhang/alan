@@ -18,7 +18,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.json.JsonObject;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.util.*;
 
@@ -127,7 +129,16 @@ public class AlanFeignEncoder extends SpringEncoder {
 
         } else {
             // 这是带有body的请求, 参数扔到请求体中
-            String queryString = objectUtils.convertToHttpFormParameter(parameterMap);
+            String queryString = null;
+            try {
+                queryString = objectUtils.convertToHttpFormParameter(parameterMap, "UTF8");
+
+            } catch (UnsupportedEncodingException e) {
+                // 不可能发生
+                e.printStackTrace();
+                throw new IllegalStateException("发生了不可能发生的错误!");
+            }
+
             request.header(HttpHeaders.CONTENT_TYPE, "application/x-www-form-urlencoded");
             request.body(queryString);
 

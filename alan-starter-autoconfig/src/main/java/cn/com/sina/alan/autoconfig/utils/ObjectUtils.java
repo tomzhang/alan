@@ -9,8 +9,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.util.StringUtils;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -70,12 +72,19 @@ public class ObjectUtils {
      * @param paramMap
      * @return
      */
-    public String convertToHttpFormParameter(Map<String, String> paramMap) {
+    public String convertToHttpFormParameter(Map<String, String> paramMap, String encoderCharset) throws UnsupportedEncodingException {
         StringBuilder formString = new StringBuilder(paramMap.size() * 8);
         for (Map.Entry<String, String> entry : paramMap.entrySet()) {
-            formString.append(entry.getKey());
+            String key = entry.getKey();
+            String encodedKey = URLEncoder.encode(key, encoderCharset);
+
+
+            formString.append(encodedKey);
             formString.append("=");
-            formString.append(entry.getValue());
+
+            String val = entry.getValue();
+            String encodedVal = URLEncoder.encode(val, encoderCharset);
+            formString.append(encodedVal);
             formString.append("&");
         }
 
