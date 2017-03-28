@@ -58,6 +58,9 @@ public class AlanFeignEncoder extends SpringEncoder {
         } else if (requestBody instanceof JsonObject) {
             processJsonObject( (JsonObject) requestBody, request );
 
+        } else if (requestBody instanceof String) {
+            processString((String) requestBody, request);
+
         } else {
             // 是POJO对象
             processPOJO(requestBody, request);
@@ -65,6 +68,10 @@ public class AlanFeignEncoder extends SpringEncoder {
         }
 
 
+    }
+
+    private void processString(String str, RequestTemplate template) {
+        template.body(str);
     }
 
     /**
