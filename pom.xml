@@ -11,7 +11,7 @@
 
 	<artifactId>alan-parent</artifactId>
 	<packaging>pom</packaging>
-    <version>1.0.7-SNAPSHOT</version>
+    <version>1.0.7</version>
 
 	<modules>
 		<module>alan-common</module>
@@ -20,7 +20,7 @@
     </modules>
 
     <properties>
-        <alan-version>1.0.7-SNAPSHOT</alan-version>
+        <alan-version>1.0.7</alan-version>
     </properties>
 
     <!-- 设定仓库 -->

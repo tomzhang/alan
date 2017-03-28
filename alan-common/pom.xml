@@ -5,12 +5,12 @@
 	<parent>
 		<artifactId>alan-parent</artifactId>
 		<groupId>cn.com.sina</groupId>
-        <version>1.0.7-SNAPSHOT</version>
+        <version>1.0.7</version>
 	</parent>
 
 	<artifactId>alan-common</artifactId>
 	<packaging>jar</packaging>
-    <version>1.0.7-SNAPSHOT</version>
+    <version>1.0.7</version>
 
 	<name>${project.artifactId}</name>
 	<url>http://spring-cloud.io</url>
