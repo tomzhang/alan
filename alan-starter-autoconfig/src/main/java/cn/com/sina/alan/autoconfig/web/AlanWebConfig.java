@@ -1,5 +1,6 @@
 package cn.com.sina.alan.autoconfig.web;
 
+import cn.com.sina.alan.autoconfig.monitor.AlanFlowMonitorInterceptor;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.impl.client.HttpClients;
@@ -12,6 +13,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
@@ -66,6 +68,18 @@ public class AlanWebConfig extends WebMvcConfigurerAdapter {
         return new AlanBase64HttpHeaderDecoder();
     }
 
+
+
+    @Autowired(required = false)
+    private AlanFlowMonitorInterceptor alanFlowMonitorInterceptor;
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        if (null != alanFlowMonitorInterceptor) {
+            log.info("请求计数服务已启动");
+            registry.addInterceptor(alanFlowMonitorInterceptor);
+        }
+    }
 
     public RequestConfig httpRequestConfig() {
 
