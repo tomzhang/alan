@@ -3,6 +3,8 @@ package cn.com.sina.alan.autoconfig.monitor;
 import org.influxdb.InfluxDB;
 import org.influxdb.dto.BatchPoints;
 import org.influxdb.dto.Point;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +22,8 @@ import java.util.concurrent.atomic.AtomicLong;
 @EnableScheduling
 @ConditionalOnProperty(prefix = "alan.auto.monitor", name = "flow", havingValue = "true", matchIfMissing = false)
 public class AlanRequestCounter {
+    public static final Logger log = LoggerFactory.getLogger(AlanRequestCounter.class);
+
     @Autowired
     private InfluxDB influxDB;
 
@@ -34,12 +38,20 @@ public class AlanRequestCounter {
      */
     @Scheduled(cron = "0/1 * * * * ?")
     public void resetCounter() {
-        createData(influxDB, influxdbConnectionProperties.getDatabase());
+        try {
+            sendData(influxDB, influxdbConnectionProperties.getDatabase());
+
+        } catch (Exception e) {
+            log.warn("统计数据写入失败: {}", e.getMessage());
+
+        }
+
+        // 计数清零
         reqCount.set(0);
         failedCount.set(0);
     }
 
-    private void createData(InfluxDB db, String dbName) {
+    private void sendData(InfluxDB db, String dbName) {
         BatchPoints batchPoints = BatchPoints
                 .database(dbName)
                 .tag("async", "true")
@@ -48,12 +60,12 @@ public class AlanRequestCounter {
                 .build();
 
 
-        Random random = new Random();
+        //Random random = new Random();
         Point point1 = Point.measurement("requests")
                 .time(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
-                //.addField("count", AlanFlowMonitorInterceptor.reqCount.longValue())
-                .addField("total", random.nextInt(1000))
+                .addField("total", AlanRequestCounter.reqCount.longValue())
                 .addField("failed", failedCount.longValue())
+                //.addField("total", random.nextInt(1000))
                 .build();
 
         batchPoints.point(point1);

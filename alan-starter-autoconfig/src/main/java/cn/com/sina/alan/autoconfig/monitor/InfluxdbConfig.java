@@ -24,6 +24,8 @@ public class InfluxdbConfig {
     @Bean
     public InfluxDB influxDB() {
         log.info("连接Influxdb");
-        return InfluxDBFactory.connect(properties.getUrl(), properties.getUsername(), properties.getPassword());
+        InfluxDB db = InfluxDBFactory.connect(properties.getUrl(), properties.getUsername(), properties.getPassword());
+
+        return db;
     }
 }
