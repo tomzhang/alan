@@ -1,6 +1,7 @@
 package cn.com.sina.alan.autoconfig.web;
 
 import cn.com.sina.alan.autoconfig.monitor.AlanFlowMonitorInterceptor;
+import cn.com.sina.alan.autoconfig.monitor.AlanRequestCounter;
 import cn.com.sina.alan.common.exception.AlanException;
 import cn.com.sina.alan.common.http.ResponseResult;
 import org.slf4j.Logger;
@@ -114,7 +115,7 @@ public class AlanRestExceptionHandler {
         }
         else {
             //logger.warn("Unknown exception type: " + ex.getClass().getName());
-            AlanFlowMonitorInterceptor.failedCount.incrementAndGet();
+            AlanRequestCounter.failedCount.incrementAndGet();
 
             HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
             return handleExceptionInternal((Exception) ex, status, req, resp);
