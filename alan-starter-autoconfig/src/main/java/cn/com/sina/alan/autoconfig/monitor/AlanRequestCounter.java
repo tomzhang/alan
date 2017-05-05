@@ -36,7 +36,7 @@ public class AlanRequestCounter {
     /**
      * 每秒执行
      */
-    @Scheduled(cron = "0/1 * * * * ?")
+    @Scheduled(cron = "${alan.auto.monitor.rate:0/1 * * * * ?}")
     public void resetCounter() {
         try {
             sendData(influxDB, influxdbConnectionProperties.getDatabase());
@@ -60,12 +60,13 @@ public class AlanRequestCounter {
                 .build();
 
 
-        //Random random = new Random();
+        Random random = new Random();
         Point point1 = Point.measurement("requests")
-                .time(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
-                .addField("total", AlanRequestCounter.reqCount.longValue())
-                .addField("failed", failedCount.longValue())
-                //.addField("total", random.nextInt(1000))
+                //.time(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
+                //.addField("total", AlanRequestCounter.reqCount.longValue())
+                //.addField("failed", failedCount.longValue())
+                .addField("failed", random.nextInt(500))
+                .addField("total", random.nextInt(1000))
                 .build();
 
         batchPoints.point(point1);
