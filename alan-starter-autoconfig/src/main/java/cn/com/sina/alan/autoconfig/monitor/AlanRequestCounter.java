@@ -63,10 +63,10 @@ public class AlanRequestCounter {
         Random random = new Random();
         Point point1 = Point.measurement("requests")
                 //.time(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
-                //.addField("total", AlanRequestCounter.reqCount.longValue())
-                //.addField("failed", failedCount.longValue())
-                .addField("failed", random.nextInt(500))
-                .addField("total", random.nextInt(1000))
+                .addField("total", AlanRequestCounter.reqCount.longValue())
+                .addField("failed", failedCount.longValue())
+                //.addField("failed", random.nextInt(500))
+                //.addField("total", random.nextInt(1000))
                 .build();
 
         batchPoints.point(point1);
