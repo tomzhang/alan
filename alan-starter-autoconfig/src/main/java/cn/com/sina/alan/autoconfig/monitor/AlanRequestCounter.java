@@ -60,7 +60,7 @@ public class AlanRequestCounter {
                 .build();
 
 
-        Random random = new Random();
+        //Random random = new Random();
         Point point1 = Point.measurement("requests")
                 //.time(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
                 .addField("total", AlanRequestCounter.reqCount.longValue())
