@@ -54,7 +54,7 @@ public class AlanRequestCounter {
     private void sendData(InfluxDB db, String dbName) {
         BatchPoints batchPoints = BatchPoints
                 .database(dbName)
-                .tag("async", "true")
+                //.tag("async", "true")
                 .retentionPolicy("autogen")
                 .consistency(InfluxDB.ConsistencyLevel.ALL)
                 .build();
