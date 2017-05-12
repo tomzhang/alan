@@ -61,13 +61,18 @@ public class AlanRequestCounter {
 
 
         //Random random = new Random();
+
+        int total = reqCount.intValue();
+        int failed = failedCount.intValue();
         Point point1 = Point.measurement("requests")
                 //.time(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
-                .addField("total", AlanRequestCounter.reqCount.longValue())
-                .addField("failed", failedCount.longValue())
-                //.addField("failed", random.nextInt(500))
-                //.addField("total", random.nextInt(1000))
+                //.addField("total", reqCount.longValue())
+                //.addField("failed", failedCount.longValue())
+                .addField("failed", failed)
+                .addField("total", total)
                 .build();
+
+        log.debug("写入采集数据, total = {}, failed = {}", total, failed);
 
         batchPoints.point(point1);
 

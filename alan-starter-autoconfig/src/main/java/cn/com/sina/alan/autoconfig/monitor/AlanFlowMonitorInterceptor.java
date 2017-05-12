@@ -21,7 +21,9 @@ public class AlanFlowMonitorInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        AlanRequestCounter.reqCount.incrementAndGet();
+        if (!request.getRequestURI().startsWith("/error")) {
+            AlanRequestCounter.reqCount.incrementAndGet();
+        }
 
         return super.preHandle(request, response, handler);
     }

@@ -47,14 +47,15 @@ public class AlanRestExceptionHandler {
     @ResponseBody
     protected ResponseResult handleException(HttpServletRequest req, HttpServletResponse resp, Throwable ex) {
 
+        if (ex instanceof AlanException) {
+            return handleAlanException((AlanException) ex, req, resp);
+        }
+
+        AlanRequestCounter.failedCount.incrementAndGet();
         //HttpHeaders headers = new HttpHeaders();
         if (ex instanceof org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException) {
             HttpStatus status = HttpStatus.NOT_FOUND;
             return handleNoSuchRequestHandlingMethod((org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException) ex, status, req, resp);
-        }
-        else if (ex instanceof AlanException) {
-            // 业务异常
-            return handleAlanException((AlanException) ex, req, resp);
         }
         else if (ex instanceof HttpRequestMethodNotSupportedException) {
             HttpStatus status = HttpStatus.METHOD_NOT_ALLOWED;
@@ -115,7 +116,6 @@ public class AlanRestExceptionHandler {
         }
         else {
             //logger.warn("Unknown exception type: " + ex.getClass().getName());
-            AlanRequestCounter.failedCount.incrementAndGet();
 
             HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
             return handleExceptionInternal((Exception) ex, status, req, resp);
