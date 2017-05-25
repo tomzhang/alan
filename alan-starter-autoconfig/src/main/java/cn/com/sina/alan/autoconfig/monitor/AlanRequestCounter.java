@@ -72,7 +72,7 @@ public class AlanRequestCounter {
                 .addField("total", total)
                 .build();
 
-        log.debug("写入采集数据, total = {}, failed = {}", total, failed);
+        log.trace("写入采集数据, total = {}, failed = {}", total, failed);
 
         batchPoints.point(point1);
 
